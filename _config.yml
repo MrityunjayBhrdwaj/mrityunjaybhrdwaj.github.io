@@ -9,7 +9,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Author settings
-author: Interactive Machine Learning
+author: Machine Learning Playground
 author-pic: myPic.png
 about-author: I love learning New things.
 
