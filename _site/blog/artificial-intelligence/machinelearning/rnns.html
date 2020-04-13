@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Understanding Recurrent Neural Nets - Learn Machine Learning The fun way</title>
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#311e3e">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#311e3e">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#311e3e">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<!-- Styles -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+</head>
+
+<body>
+  <div class="flex-container">
+  <header class="main-header">
+  <div class="wrapper">
+    <div class="header-flex">
+      <div class="menu-icon-container">
+        <span class="menu-icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
+      </div>
+      <nav class="main-nav">
+        <span class="menu-icon-close"><i class="fa fa-times" aria-hidden="true"></i></span>
+        <ul>
+
+          <!-- TODO: BRAINSTORM: decide where to put these blog and about page link... i am thinking of in the footer but i also need to put some link on the header (or do i??) -->
+          <!-- <li><a href="/">Blog</a></li>
+          <li><a href="/about">About</a></li> -->
+
+        
+          
+            <li><a href="/machine/learning/bayesianLinearRegression.html" class="recent-item" ><span>Bayesian Linear Regression</span></a></li>
+          
+        
+          
+            <li><a href="/blog/artificial-intelligence/machinelearning/rnns.html" class="recent-item" ><span>Understanding Recurrent Neural Nets</span></a></li>
+          
+        
+
+        </ul>
+      </nav>
+      <p class="logo"><a href="/">Interactive Machine Learning</a></p>
+      <div class="search-icon-container">
+        <span class="search-icon"><a><i class="fa fa-search" aria-hidden="true"></i></a></span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- including plotlyjs -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+</header> <!-- End Header -->
+
+
+  <!-- including mathjax -->
+    <script async type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: [
+        "MathMenu.js",
+        "MathZoom.js",
+        "AssistiveMML.js",
+        "a11y/accessibility-menu.js"
+      ],
+      jax: ["input/TeX", "output/CommonHTML"],
+      TeX: {
+        extensions: [
+          "AMSmath.js",
+          "AMSsymbols.js",
+          "noErrors.js",
+          "noUndefined.js",
+        ]
+      }
+    });
+  </script>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+  <!-- Import all the required dependencies -->
+  
+    <script type="text/javascript" src="/assets/js/dependency/d3.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/assets/js/dependency/p5/p5.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/assets/js/dependency/plotlyJS/plotly-latest.min.js"></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- From the web -->
+  
+
+  <script>
+    console.log("imported libraries: "+ 'd3p5plotly')
+  </script>
+
+  <!-- imported the required visualization script for cover-visualization -->
+  <article class="article-page">
+    <div class="page-image">
+      <!-- <div id="cover-viz" class="cover-image" style="background-color: rgb(235, 235, 235); background-size: cover;"></div>
+
+      <script type="text/javascript"  
+      src='/assets/viz//rnn/rnn_viz.js'>
+    </script> -->
+
+    <iframe style="background-size: cover;padding: 0%;" frameborder=0 class="cover-image" width="90%" align="middle" padding="0" src='/assets/viz//rnn/rnn_viz.js'></iframe>
+
+      <!-- <div class="cover-image" style="background: url(/assets/img//posts_imgs/rnn_with_math/teaser/nino-yang-unsplash.jpg) center no-repeat; background-size: cover;"></div> -->
+    </div>
+    <div class="wrapper">
+      <div class="page-content">
+        <div class="header-page">
+          <h1 class="page-title">Understanding Recurrent Neural Nets</h1>
+
+
+          <!-- <div class="page-date"><time datetime="2019-01-13 00:00:00 +0530">2019, Jan 13</time></div> -->
+        </div>
+        <p>Recurrent Neural Nets are one of the most crucial architecture to understand in the field of deep learning and for good reason, today, when it comes to modeling sequential data, our goto architecture are RNNs, whether it’s predicting what are you going to type next or to have a virtual assistant like Siri or Alexa or even to pridict stock prices.in-short,RNNs are important.</p>
+
+<p>Now that you are convinced! we can move forward into really understanding it, don’t worry its not that unfamiliar…. it’s just a simple Neural-net including aspects of a dynamic system that are incorporated into its architecture with a twist in its backpropagation algorithm… so let’s get into it!</p>
+
+<p>As discussed before, RNNs are used to model sequential data which are usually generated by a dynamic system like our speech, we can think of a dynamic system(see equation (1)) as a function which depends on the function of previous time step… i.e, when we deliver a sentence our choice of current word is bounded by the choice of our previous word and so on.. for example, we can’t just say “Today harry a beautiful day” instead of “Today is a beautiful day”…</p>
+
+<script type="math/tex; mode=display">S_t = f(S_{t-1}) \tag{1}</script>
+
+<p>and if we were to represent it in computation graph it looks something like fig 1.1 (a):</p>
+
+<p class="text-center text-center"><img src="/assets/img/posts_imgs/rnn_with_math/body/rnn_dsys2unfold.jpg" />
+<!-- <i style="font-size:15px">image source: WildML</i> -->
+<i style="font-size:15px">fig 1.1</i>
+<i style="font-size:15px">a. Dynamic System (left) b. unfolded RNN graph (right)</i></p>
+
+<p>Some Notations to be aware of:-<br /></p>
+
+<ul>
+  <li><script type="math/tex">s_t</script> = State or hidden units at time step <script type="math/tex">(t)</script></li>
+  <li><script type="math/tex">o_t</script> = output at time step (t)</li>
+  <li><script type="math/tex">V</script> = Weight Matrix b/w hidden unit and the output</li>
+  <li><script type="math/tex">W</script> = Weight Matrix b/w hidden units</li>
+  <li><script type="math/tex">U</script> = Weight Matrix b/w input and <script type="math/tex">s_t</script></li>
+</ul>
+
+<p>where,</p>
+
+<script type="math/tex; mode=display">a_t = b + Ws_{t-1} + Ux_t</script>
+
+<p><script type="math/tex">s_t = \sigma(a_t)</script>   (where, <script type="math/tex">\sigma</script> = activation function )</p>
+
+<script type="math/tex; mode=display">o_t = c + Vs_t</script>
+
+<p>now, in order to predict the next word or the next stock prices we first need to input some data and the way we are going to be doing that is by putting every input-unit(word in a sentence,history of stock prices) into each time step,think of it like our<a id="post_link" target="_blank" href="https://en.wikipedia.org/wiki/Prior_probability"> prior knowledge</a> that we feed into our network in order to predict the next unit in the sequence…</p>
+
+<p>in case of speech generation, the output is a huge matrix consist of the probabilities of occurence of every word in our vocabulary,in case of stock market prediction its going to be just a simple output of prices…. from now on we are just going to be focusing on the general form of a simple RNNs</p>
+
+<p>ok, so we know how are we going to get our prediction but what if we predict it wrong?? first of all we need a measure to calculate the correctness of our prediction.enter, Loss function, loss function is just a accumulation of all the individual loss at each time step… i.e, <script type="math/tex">l_t = 1/2*(o_t - y_t)^2</script> where <script type="math/tex">y_t</script> is the true output and <script type="math/tex">o_t</script> is the probability @ timestep <script type="math/tex">t</script> although usually we use cross-entropy loss for language modelling but for simplicity we are going with standard<a id="post_link" target="_blank" href="https://en.wikipedia.org/wiki/Mean_squared_error"> MSE</a>.</p>
+
+<p>now that we know hot to quantify the correctness our prediction, we need to find a way to minimize it and just like a simple perceptron, we need to come up with Weights that minimize our Loss function.
+and the way we are going to be doing that is by calculating the derivative of our Loss function w.r.t. these weights which will tells us in which direction we should move in order to minimize our Loss function and update our weights accordingly.
+which means, we need to calculate these values:-</p>
+
+<script type="math/tex; mode=display">{ {\partial L}\over{\partial V} },
+ { {\partial L}\over{\partial W} }, 
+ { {\partial L}\over{\partial U} } \tag{2}</script>
+
+<p>but in order to calculate these, we first need to calculate some derivatives beforehand,which will prove useful in calculating our final weight derivatives(2). first we need to calculate the derivative of <script type="math/tex">o_t</script> w.r.t our loss function:</p>
+
+<script type="math/tex; mode=display">{ { \partial L }\over{\partial o_t}} = { { \partial L }\over{ \partial l_t }} * { { \partial l_t }\over{ \partial o_t } }</script>
+
+<p>so as we know:</p>
+
+<script type="math/tex; mode=display">L = l_t + l_{t-1} + ..... + l_{1}</script>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+{ { \partial L }\over{\partial l_t} } &= { {\partial }\over{\partial l_t} }(l_t + l_{t-1} + ....... + l_1) \\
+&= 1
+\end{align} %]]></script>
+
+<p>for second term :</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+{ { \partial l_t } \over {\partial o_t} }  &= {1\over2}({ {\partial } \over {\partial o_t} }((o_t - y_t)^2)) \\
+&=  (o_t - y_t)*1
+\end{align} %]]></script>
+
+<p>putting it all together we get:</p>
+
+<script type="math/tex; mode=display">{ { \partial L }\over {\partial o_t} } = { {(o_t-y_1)*1}*{1} }</script>
+
+<p>now the next thing we need to calculate is <script type="math/tex">{ {\partial L} \over{\partial s_t}}</script>,
+this is not an easy fleet… beacuse if you change <script type="math/tex">s_t</script> its going to change} <script type="math/tex">s_{t+1}</script> and} <script type="math/tex">s_{t+2}</script> and so on… untill the end of the time or untill the end of our input sequence and finally change our Loss function. so our derivative is going to be:</p>
+
+<script type="math/tex; mode=display">{ {\partial L} \over{\partial s_t}} = ({ {\partial L} \over {\partial o_t} } * { {\partial o_t} \over {\partial s_t} }) + ({ {\partial L}\over{\partial s_{t+1}} } * { {\partial s_{t+1}}\over {\partial s_t} })</script>
+
+<p>for convenience, let <script type="math/tex">\kappa = { {\partial L} \over{\partial s} }</script></p>
+
+<script type="math/tex; mode=display">\kappa_t = ({ {\partial L} \over {\partial o_t} } * { {\partial o_t} \over {\partial s_t} } ) + (\kappa_{t+1} * ({ {\partial L}\over{\partial s_{t+1}} }*{ {\partial s_{t+1}}\over {\partial s_t} }) )</script>
+
+<p>where, <script type="math/tex">{ {\partial s_{t+1}}\over {\partial s_t} } = { {\partial }\over {\partial s_t} }(s_t*W) = W</script></p>
+
+<p>but we can’t calculate <script type="math/tex">\kappa_t</script> just yet, basically we want to calcaulate the derivative w.r.t current time but as u can see in the expression above we also need to calculate the derivative w.r.t the next time step and so on…(because of <script type="math/tex">\kappa_{t+1}</script> ) untill the end of time…(litrally)
+that is why we first need to calculate the derivative w.r.t last time-step and then <strong>backpropagate through time</strong> to get to the current time step (t), which is the reason why this algorithm is known as backpropagation through time(BPTT).</p>
+
+<p>so the derivative w.r.t last time step <script type="math/tex">(T)</script> is going to be:</p>
+
+<script type="math/tex; mode=display">{ {\partial L} \over{\partial s_T}} = { {\partial L} \over {\partial o_T} } * { {\partial o_T} \over {\partial s_T} }</script>
+
+<p>here, we know <script type="math/tex">{ {\partial L} \over {\partial o_T} }</script>… but what about the second term??</p>
+
+<script type="math/tex; mode=display">{ {\partial o_T} \over {\partial s_T} }={ {\partial} \over {\partial s_T} }(c + Vs_T) = V</script>
+
+<p>our final <script type="math/tex">{ {\partial L} \over{\partial s_T}}</script> :-</p>
+
+<script type="math/tex; mode=display">{ {\partial L} \over{\partial s_T}} = (o_t-y_t) * V</script>
+
+<p>it should be clear by now that the derivative of loss function w.r.t s_t is going to depend on the derivative w.r.t s_t+1 and s_t+2 and so on untill the last time step which we now know how to calculate, so our final expression of calculating <script type="math/tex">\kappa_t</script></p>
+
+<script type="math/tex; mode=display">\kappa_t = ( (o_t - y_t)* V) + ((\kappa_{t+1}) * W )</script>
+
+<script type="math/tex; mode=display">\kappa_{t+1} = ( (o_t - y_t)* V) + ((\kappa_{t+2}) * W )</script>
+
+<script type="math/tex; mode=display">\vdots</script>
+
+<script type="math/tex; mode=display">\kappa_{T-1} = ( (o_t - y_t)* V) + ((\kappa_{T}) * W )</script>
+
+<script type="math/tex; mode=display">\kappa_T = ( (o_t - y_t)* V)</script>
+
+<p>Finally we have every thing we need in order to calculate the derivatives our weights.. we can now move forward and calculate them respectively:-</p>
+
+<script type="math/tex; mode=display">{ {\partial L} \over{\partial V}} = { {\partial L} \over{\partial o_t} } * { {\partial o_t} \over{\partial V} }</script>
+
+<script type="math/tex; mode=display">{ {\partial L} \over{\partial W}} = { {\partial L} \over{\partial s_t} } * { {\partial s_t} \over{\partial W} }</script>
+
+<script type="math/tex; mode=display">{ {\partial L} \over{\partial U}} = { {\partial L} \over{\partial s_t} } * { {\partial s_t} \over{\partial U} }</script>
+
+<p>calculating,<script type="math/tex">{ {\partial L} \over{\partial V}}</script>:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+{ {\partial L} \over{\partial V}} &= { {\partial L} \over{\partial o_t} } * { {\partial o_t} \over{\partial V} } \\
+&= (o_t - y_t) * { {\partial o_t} \over{\partial V} }
+\end{align} %]]></script>
+
+<script type="math/tex; mode=display">{ {\partial o_t} \over{\partial V} } = { {\partial} \over{\partial V} }(V*s_t) = s_t</script>
+
+<script type="math/tex; mode=display">{ {\partial L} \over{\partial V}} = (o_t - y_t) * s_t</script>
+
+<p>calculating,<script type="math/tex">{ {\partial L} \over{\partial U} }</script>:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+{ {\partial L} \over{\partial U}} &= { {\partial L} \over{\partial s_t} } * { {\partial s_t} \over{\partial U} } \\
+&= (\kappa_t) * { {\partial s_t} \over{\partial U} }
+\end{align} %]]></script>
+
+<script type="math/tex; mode=display">{ {\partial s_t} \over{\partial U} }
+= { {\partial s_t} \over{\partial a_t} }*{ {\partial a_t} \over{\partial U} }</script>
+
+<script type="math/tex; mode=display">{ {\partial s_t} \over{\partial a_t} }
+=  { {\partial } \over{\partial a_t} }(tanh(a_t))</script>
+
+<script type="math/tex; mode=display">{ {\partial s_t} \over{\partial a_t} }
+=  (1-tanh^2(a_t))</script>
+
+<script type="math/tex; mode=display">{ {\partial a_t} \over{\partial U} }
+= { {\partial } \over{\partial U} }(b+ W*s_{t-1} + U*x_t)</script>
+
+<script type="math/tex; mode=display">{ {\partial a_t} \over{\partial U} }
+= (x_t)</script>
+
+<script type="math/tex; mode=display">{ {\partial s_t} \over{\partial U} }
+= (1- tanh^2(a_t))*(x_t)</script>
+
+<script type="math/tex; mode=display">{   {\partial L} \over{\partial U}} = (\kappa_t)*((1-tanh^2(a_t)) * (x_{t}))</script>
+
+<p>calculating,<script type="math/tex">{ {\partial L} \over{\partial W}}</script>:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+{ {\partial L} \over{\partial W}} &= { {\partial L} \over{\partial s_t} } * { {\partial s_t} \over{\partial W} } \\
+&= (\kappa_t) * { {\partial s_t} \over{\partial W} }
+\end{align} %]]></script>
+
+<script type="math/tex; mode=display">{ {\partial s_t} \over{\partial W} }
+= { {\partial s_t} \over{\partial a_t} }*{ {\partial a_t} \over{\partial W} }</script>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+{ {\partial a_t} \over{\partial W} } &= { {\partial } \over{\partial W} }(b+ W*s_{t-1} + U*x_i) \\
+&= ( s_{t-1})
+\end{align} %]]></script>
+
+<script type="math/tex; mode=display">{ {\partial s_t} \over{\partial W} }
+= (1-tanh^2(a_t))* (s_{t-1})</script>
+
+<script type="math/tex; mode=display">{ {\partial L} \over{\partial W}} = (\kappa_t)*((1-tanh^2(a_t)) * (s_{t-1}))</script>
+
+<p>putting all the derivatives together our final derivative of Loss function w.r.t all the weights are:-</p>
+
+<script type="math/tex; mode=display">{ {\partial L} \over{\partial V}} = (o_t - y_t) * s_t</script>
+
+<script type="math/tex; mode=display">{ {\partial L} \over{\partial U}} = (\kappa_t)*((1-tanh^2(a_t)) * (x_{t}))</script>
+
+<script type="math/tex; mode=display">{ {\partial L} \over{\partial W}} = (\kappa_t)*((1-tanh^2(a_t)) * (s_{t-1}))</script>
+
+<p>Now that we have the derivatives of all the weights we can finally compute our weights</p>
+
+<script type="math/tex; mode=display">V_{\text{new}} = V_{\text{old}} + \alpha{ {\partial L} \over{\partial V} }</script>
+
+<script type="math/tex; mode=display">W_{\text{new}} = W_{\text{old}} + \alpha{ {\partial L} \over{\partial W} }</script>
+
+<script type="math/tex; mode=display">U_{\text{new}} = U_{\text{old}} + \alpha{ {\partial L} \over{\partial U} }</script>
+
+<p>Congratulations,now that you know how Recurrent Neural Network works internally/mathematically as well as intuitively…we can now worry about how to implement it… if you ask anyone in the industry they all say RNNs doesnt work as it is… in paper it is really great and this is how it works internall but in practice we need to do some modification in order to make it work and that we will do in the next part of this blog…</p>
+
+
+        <div class="page-footer">
+          <div class="page-tag">
+            <span>Tags:</span>
+            
+            <a href="/tags#ML" class="tag">| ML</a>
+            
+            <a href="/tags#DL" class="tag">| DL</a>
+            
+            <a href="/tags#AI" class="tag">| AI</a>
+            
+            <a href="/tags#RNN" class="tag">| RNN</a>
+            
+            <a href="/tags#neural-networks" class="tag">| neural-networks</a>
+            
+          </div><!-- End Tags -->
+          <div class="page-share">
+            <span>Share:</span>
+            <a href="https://twitter.com/intent/tweet?text=Understanding Recurrent Neural Nets&url=http://localhost:4000/blog/artificial-intelligence/machinelearning/rnns.html" title="Share on Twitter" rel="nofollow" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            <a href="https://facebook.com/sharer.php?u=http://localhost:4000/blog/artificial-intelligence/machinelearning/rnns.html" title="Share on Facebook" rel="nofollow" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+            <a href="https://plus.google.com/share?url=http://localhost:4000/blog/artificial-intelligence/machinelearning/rnns.html" title="Share on Google+" rel="nofollow" target="_blank"><i class="fa fa-google" aria-hidden="true"></i></a>
+          </div><!-- End Share -->
+        </div>
+        <!-- Removed disqus, newsletter, recent posts -->
+        <div class="post-nav">
+        <div>
+          
+        </div>
+        <div class="post-nav-next">
+          
+          <a href="/machine/learning/bayesianLinearRegression.html">Bayesian Linear Regression&nbsp;&raquo;</a>
+          
+        </div>
+      </div>
+
+
+      </div>
+    </div> <!-- End Wrapper -->
+  </article>
+  <div class="search-box">
+  <div class="wrapper">
+    <div class="search-grid">
+      <form class="search-form">
+        <div id="search-container">
+          <input type="text" id="search-input" class="search" placeholder="Search">
+        </div>
+      </form>
+      <ul id="results-container" class="results-search"></ul>
+      <div class="icon-close-container">
+        <span class="search-icon-close"><i class="fa fa-times" aria-hidden="true"></i></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <footer class="main-footer">
+  <div class="copyright">
+    <p>2020 &copy; <a href="http://localhost:4000"> Interactive Machine Learning </a></p>
+  </div>
+</footer> <!-- End Footer -->
+
+</div>
+
+  <!-- JS -->
+<script src="/assets/js/jquery-3.2.1.min.js"></script>
+<script src="/assets/js/jekyll-search.js"></script>
+<script>
+  SimpleJekyllSearch({
+    searchInput: document.getElementById('search-input'),
+    resultsContainer: document.getElementById('results-container'),
+    json: '/search.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    fuzzy: false,
+    exclude: ['Welcome']
+  });
+</script>
+<script src="/assets/js/main.js"></script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script> <!-- End Analytics -->
+
+</body>
+</html>

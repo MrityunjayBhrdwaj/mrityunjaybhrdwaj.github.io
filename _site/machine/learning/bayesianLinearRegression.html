@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Bayesian Linear Regression - Learn Machine Learning The fun way</title>
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicon/apple-touch-icon-114x114.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#311e3e">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#311e3e">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#311e3e">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<!-- Styles -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+</head>
+
+<body>
+  <div class="flex-container">
+  <header class="main-header">
+  <div class="wrapper">
+    <div class="header-flex">
+      <div class="menu-icon-container">
+        <span class="menu-icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
+      </div>
+      <nav class="main-nav">
+        <span class="menu-icon-close"><i class="fa fa-times" aria-hidden="true"></i></span>
+        <ul>
+
+          <!-- TODO: BRAINSTORM: decide where to put these blog and about page link... i am thinking of in the footer but i also need to put some link on the header (or do i??) -->
+          <!-- <li><a href="/">Blog</a></li>
+          <li><a href="/about">About</a></li> -->
+
+        
+          
+            <li><a href="/machine/learning/bayesianLinearRegression.html" class="recent-item" ><span>Bayesian Linear Regression</span></a></li>
+          
+        
+          
+            <li><a href="/blog/artificial-intelligence/machinelearning/rnns.html" class="recent-item" ><span>Understanding Recurrent Neural Nets</span></a></li>
+          
+        
+
+        </ul>
+      </nav>
+      <p class="logo"><a href="/">Interactive Machine Learning</a></p>
+      <div class="search-icon-container">
+        <span class="search-icon"><a><i class="fa fa-search" aria-hidden="true"></i></a></span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- including plotlyjs -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+</header> <!-- End Header -->
+
+
+  <!-- including mathjax -->
+    <script async type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: [
+        "MathMenu.js",
+        "MathZoom.js",
+        "AssistiveMML.js",
+        "a11y/accessibility-menu.js"
+      ],
+      jax: ["input/TeX", "output/CommonHTML"],
+      TeX: {
+        extensions: [
+          "AMSmath.js",
+          "AMSsymbols.js",
+          "noErrors.js",
+          "noUndefined.js",
+        ]
+      }
+    });
+  </script>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+  <!-- Import all the required dependencies -->
+  
+
+  
+
+  
+
+  
+    <script type="text/javascript" src="/assets/js/dependency/tensorflowJS/tf.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/assets/js/dependency/ndjs/nd.min.js"></script>
+  
+
+  
+
+  
+
+  <!-- From the web -->
+  
+    <script src="https://npmcdn.com/chart.js@latest/dist/Chart.bundle.min.js"></script>
+  
+
+  <script>
+    console.log("imported libraries: "+ 'tensorflowndchart')
+  </script>
+
+  <!-- imported the required visualization script for cover-visualization -->
+  <article class="article-page">
+    <div class="page-image">
+      <!-- <div id="cover-viz" class="cover-image" style="background-color: rgb(235, 235, 235); background-size: cover;"></div>
+
+      <script type="text/javascript"  
+      src='/assets/viz//bayesianLinearRegression/index.html'>
+    </script> -->
+
+    <iframe style="background-size: cover;padding: 0%;" frameborder=0 class="cover-image" width="90%" align="middle" padding="0" src='/assets/viz//bayesianLinearRegression/index.html'></iframe>
+
+      <!-- <div class="cover-image" style="background: url(/assets/img//posts_imgs/bayesianLinearRegression/teaser/darkBLR.png) center no-repeat; background-size: cover;"></div> -->
+    </div>
+    <div class="wrapper">
+      <div class="page-content">
+        <div class="header-page">
+          <h1 class="page-title">Bayesian Linear Regression</h1>
+
+
+          <!-- <div class="page-date"><time datetime="2020-04-12 00:00:00 +0530">2020, Apr 12</time></div> -->
+        </div>
+        <h2 id="what-is-bayesian-linear-regression-and-why-should-i-care">What is Bayesian Linear Regression and why should I care?</h2>
+
+<p>Just like in simple linear regression in bayesian Linear Regression we try to find the best possible curve to fit to our <span class="dataPoints">data</span> but along with that, we also take into account <strong>the uncertainity</strong> towards our prediction. for example, in this visualization, we can see that in the areas where we have the <span class="dataPoints">data points</span>, the width of the <span class="stdev">dashed curve</span> is small which means our model is really confident about its prediction (which is showen in the <span class="prediction">solid red line</span>) but if you see in the regions inwhich we don’t have any data points, the width of those <span class="stdev">dashed curve</span> are much larger which inturn means, that the model is highly uncertain about its prediction…. but why should we care about modelling uncertainity? Suppose, you want to diagnose a patient and given the symptoms you want to predict how serious this patient is and should it require immidiate attention on not… because we know how confident our model is about its prediction, we can make better decisions like if its highly uncertain, then we should better consult with the expert or something and don’t believe on its predictions, whereas in the standard linear regression/ non-bayesian methods we can’t do any of that, there we only have a prediction and thats it… using bayesian linear regression, we can also find missing data and even learns what would be the best possible degree of the polynomial to fit to this data without having to manually set them( like we usually do)…</p>
+
+
+        <div class="page-footer">
+          <div class="page-tag">
+            <span>Tags:</span>
+            
+            <a href="/tags#ML" class="tag">| ML</a>
+            
+            <a href="/tags#AI" class="tag">| AI</a>
+            
+            <a href="/tags#linear-regression" class="tag">| linear-regression</a>
+            
+            <a href="/tags#bayesian" class="tag">| bayesian</a>
+            
+            <a href="/tags#bayes" class="tag">| bayes</a>
+            
+          </div><!-- End Tags -->
+          <div class="page-share">
+            <span>Share:</span>
+            <a href="https://twitter.com/intent/tweet?text=Bayesian Linear Regression&url=http://localhost:4000/machine/learning/bayesianLinearRegression.html" title="Share on Twitter" rel="nofollow" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            <a href="https://facebook.com/sharer.php?u=http://localhost:4000/machine/learning/bayesianLinearRegression.html" title="Share on Facebook" rel="nofollow" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+            <a href="https://plus.google.com/share?url=http://localhost:4000/machine/learning/bayesianLinearRegression.html" title="Share on Google+" rel="nofollow" target="_blank"><i class="fa fa-google" aria-hidden="true"></i></a>
+          </div><!-- End Share -->
+        </div>
+        <!-- Removed disqus, newsletter, recent posts -->
+        <div class="post-nav">
+        <div>
+          
+          <a href="/blog/artificial-intelligence/machinelearning/rnns.html">&laquo;&nbsp;Understanding Recurrent Neural Nets</a>
+          
+        </div>
+        <div class="post-nav-next">
+          
+        </div>
+      </div>
+
+
+      </div>
+    </div> <!-- End Wrapper -->
+  </article>
+  <div class="search-box">
+  <div class="wrapper">
+    <div class="search-grid">
+      <form class="search-form">
+        <div id="search-container">
+          <input type="text" id="search-input" class="search" placeholder="Search">
+        </div>
+      </form>
+      <ul id="results-container" class="results-search"></ul>
+      <div class="icon-close-container">
+        <span class="search-icon-close"><i class="fa fa-times" aria-hidden="true"></i></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <footer class="main-footer">
+  <div class="copyright">
+    <p>2020 &copy; <a href="http://localhost:4000"> Interactive Machine Learning </a></p>
+  </div>
+</footer> <!-- End Footer -->
+
+</div>
+
+  <!-- JS -->
+<script src="/assets/js/jquery-3.2.1.min.js"></script>
+<script src="/assets/js/jekyll-search.js"></script>
+<script>
+  SimpleJekyllSearch({
+    searchInput: document.getElementById('search-input'),
+    resultsContainer: document.getElementById('results-container'),
+    json: '/search.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    fuzzy: false,
+    exclude: ['Welcome']
+  });
+</script>
+<script src="/assets/js/main.js"></script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script> <!-- End Analytics -->
+
+</body>
+</html>
