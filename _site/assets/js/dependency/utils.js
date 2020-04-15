@@ -554,17 +554,24 @@ function optimize(
  */
 function normalizeData(data, unitVariance=0) {
 
-  const meanCenteredData = data.sub( data.mean((axis = 0)) );
-  const variance = meanCenteredData.pow(2);
-  const stdev = tf.sum(variance.pow(1/2), 0).div(meanCenteredData.shape[0]);
+  let meanCenteredData = data.sub( data.mean(axis = 0) );
+
+  if(!unitVariance)
+    return meanCenteredData;
+
+  const stdev = normalizeData(meanCenteredData, 0).pow(2).mean().sqrt();
 
   // z-score
   const standardForm = meanCenteredData.div(stdev);
-  if (unitVariance)
-    return standardForm;
 
-  return meanCenteredData;
+  return standardForm;
 
+
+}
+
+function tfCov(tensor){
+
+  return tensor.transpose().matMul(tensor).div(tensor.shape[0] -1)
 }
 
 //NOTE: currently support only the [m,k] vector in [m,n] matrix where, k <= (start - n)
@@ -1109,4 +1116,264 @@ async function tfDeleteAsync(inputTensor, dim=0, axis=0){
   const tensorMask = tf.tensor1d(mask, 'bool');
 
   return tf.booleanMaskAsync(inputTensor, tensorMask, axis) ;
+}
+
+
+
+function tfDeleteSync(inputTensor, dim=0, axis=0){
+// NOTE: currently, it only works for aixs=0;
+
+  dim = ((typeof dim) !== "number")?dim: [dim];
+
+  const shape = inputTensor.shape;
+
+  const mask = tf.ones([1, shape[axis]]).flatten().arraySync();
+  for(let i=0;i< dim.length;i++){
+    if (dim[i] < shape[axis])
+      mask[dim[i]] = 0;
+  }
+
+  const tensorMask = tf.tensor1d(mask, 'bool');
+
+  let output = 0;
+  async function getBooleanMask() {
+
+    // wait until the promise returns us a value
+    output = await tf.booleanMaskAsync(inputTensor, tensorMask, axis) ;
+  
+    // "Now it's done!"
+    return output
+    console.log('calculated BooleanMask');
+  };
+  return getBooleanMask();
+
+  return output; 
+
+  // const output = await tf.booleanMaskAsync(inputTensor, tensorMask, axis) ;
+
+  // return output;
+}
+
+/**
+ * 
+ * @param {tf.tensor} matrix input 2d-Tensor
+ * 
+ * @description given a 2d-tensor(matrix) the function returns the determinant of the given matrix
+ */
+function tfDet(tensor){
+  // based on this article: https://integratedmlai.com/find-the-determinant-of-a-matrix-with-pure-python-without-numpy-or-scipy/
+
+  if (tensor.shape.length > 2)throw new Error('tfDet only support 2d-tensors');
+
+  // if the matrix is singular then the determinant is 0
+  if(tensor.shape[0] !== tensor.shape[1])return 0;
+ 
+  const n = tensor.shape[0];
+
+  const Matrix = tensor.arraySync();
+
+  for(let i=0;i< n;i++){
+    for(let j=i+1;j<n;j++){
+
+      // id diagonal is zero then change it to a slight non-zero value so that we don't have to div by zero in future calculation
+      if(Matrix[i][i] === 0){
+        Matrix[i][i] = 1.0e-18;
+      }
+
+      const currRowFac = Matrix[j][i]/Matrix[i][i];
+
+      for(let k=0; k<n;k++){
+        Matrix[j][k] = Matrix[j][k] - currRowFac * Matrix[i][k];
+      }
+
+    }
+  }
+
+  let determinant = 1.0;
+
+  for(let i=0;i<n;i++){
+    determinant *= Matrix[i][i]
+  }
+
+  return tf.tensor(determinant);
+}
+
+
+function multivariateGaussian(mean=tf.zeros([2,1]),covariance=tf.zeros([2,2])){
+
+
+  if (!mean.shape || !(covariance.shape))
+    throw new Error('mean and variance must be a tf.tensor object')
+
+  this.setMean = function(newMean){
+    mean = newMean;
+  }
+
+  this.setVariance = function(newCovarianceMatrix){
+    covariance = newCovarianceMatrix;
+  }
+
+  this.getMean = function(){
+    return mean;
+  }
+  this.getVariance = function(){
+    return covariance;
+  }
+
+  this.getProbability = function(x){
+
+
+    let k = covariance.shape[0];
+    let det = tfDet(covariance).flatten().arraySync()[0];
+    let covInv = tfpinv(covariance);
+
+    let fac = 1/( ((2*Math.PI)**(k) * det )**(1/2) );
+
+    let meanCenteredData = x.sub(mean);
+    // let prob = tf.exp( meanCenteredData.matMul(covInv).matMul(meanCenteredData.transpose()));
+
+    let tileArray = (new Array(x.shape.length + 1)).fill(1)
+    tileArray[0] = x.shape[0];
+
+    let prob = tf.exp( meanCenteredData.expandDims().reshape([x.shape[0],1 , x.shape[1]]).matMul(covInv.expandDims().tile(tileArray)).matMul(meanCenteredData.expandDims().reshape([x.shape[0],x.shape[1], 1]).mul(-1/2)).squeeze());
+
+    return prob.mul(fac);
+  }
+
+  this.getSamples = function(sampleSize){
+    // return the samples generated from this multivariate gaussian distribution
+
+    const sphericalGaussianSamples = tf.randomNormal([sampleSize, mean.shape[0]]);
+
+    const { eigenVectors : covEignVecs, eigenValues :covEignVals} = tfEigen_R(covariance);
+
+    let gaussianSamples = covEignVals.pow(1/2).mul(covEignVecs).matMul(sphericalGaussianSamples.transpose()).transpose();
+
+    return gaussianSamples.add(mean);
+
+  }
+
+}
+
+
+function tfEigen_R(tensor){
+
+  let matrix = tensor.arraySync();
+  matrix = nd.array(matrix);
+
+  const eigVecs = JSON.parse( nd.la.eigen(matrix)[1].toString() );
+  const eigVals = JSON.parse( nd.la.eigen(matrix)[0].toString() );
+
+  return {eigenVectors: tf.tensor(eigVecs), eigenValues: tf.tensor(eigVals)};
+}
+
+
+/**
+ * 
+ * @param {tf.tensor} tensor input tf.tensor object
+ * @param {number} epsilon convergence criterion
+ * @param {number} maxItrs maximum allowed iteration of power method
+ * 
+ * @description given a tensor, this function return the eigenVectors and eigenVals of the matrix using power Iteration method
+ */
+function tfEigen(tensor, epsilon=.0001, maxItrs=10000){
+
+  function shiftingRedirection(M, eigenValue, eigenVector){
+   /* 
+    Apply shifting redirection to the matrix to compute next eigenpair: M = M-lambda v
+  */
+
+    return (M.sub(eigenValue.mul(tf.matMul(eigenVector.transpose(), eigenVector))));
+  }
+
+  function powerMethod(M, epsilon=0.0001, maxItrs=10000){
+
+
+    // initialize
+    let eigenVecArray = (new Array(maxItrs)).fill(null);
+    eigenVecArray[0] = tf.randomNormal([M.shape[0], 1])
+
+    eigenVecArray[1] =  tf.matMul(M, eigenVecArray[0]).div(tf.norm(tf.matMul(M, eigenVecArray[0])));
+
+    let count = 1;
+
+    while(   ((tf.norm(eigenVecArray[count].sub(eigenVecArray[count-1])).flatten().arraySync()[0]) > epsilon) && (count < maxItrs)){
+
+      // Computing eigenvector
+
+      eigenVecArray[count+1] = tf.matMul(M, eigenVecArray[count]).div(tf.norm(tf.matMul(M, eigenVecArray[count])));
+      count++;
+
+    }
+
+    // Compute eigenValue
+    const  eigenValue = tf.matMul(tf.matMul(eigenVecArray[count].transpose(), M), eigenVecArray[count]);
+
+    return {eigenVec: eigenVecArray[count], eigenVal: eigenValue}
+
+  }
+
+  function eigenPairs(M, epsilon= 0.00001, maxItrs = 100){
+
+    // initialize
+    let eigenVectors = (new Array(M.shape[0])).fill(null);
+    let eigenValues = tf.zeros(M.shape).arraySync();
+  
+    for(let i=0;i< M.shape[0]; i++){
+      const {  eigenVec : currEigenVec ,  eigenVal : currEigenVal } = powerMethod(M, epsilon, maxItrs);
+
+      eigenVectors[i] = currEigenVec.flatten().arraySync();
+      eigenValues[i][i]  = currEigenVal.flatten().arraySync()[0];
+
+    // remove the currently calculated eigen vector direction from the original matrix so that it doesn't get recalculated again
+      M = shiftingRedirection(M, currEigenVec, currEigenVal);
+    }
+
+    return {eigenVectors: tf.tensor(eigenVectors), eigenValues: tf.tensor(eigenValues)};
+  }
+
+
+  if (tensor.shape.length > 2)
+    throw new Error('input must be a 2-dimensional tensor(a.k.a matrix) given a tensor of shape: '+tensor.shape);
+
+  if (( tensor.shape[0] != tensor.shape[1]))
+    throw new Error('input must be a square matrix, given a matrix of size: '+ tensor.shape)
+
+
+  return eigenPairs(tensor,epsilon, maxItrs)
+
+}
+
+
+// a template for quickly creating a d3 viz which can be used as input space visualization
+// function inputViz(){
+
+//   this.components = {
+
+//   }
+
+//   this.init = function(divContainer, svgSettings={width: 500, height: 500, rangeX:[-10, 10], rangeY: [-10, 10], }){
+
+//   }
+
+
+
+// }
+
+
+// Copies a variable number of methods from source to target.
+d3.rebind = function(target, source) {
+  var i = 1, n = arguments.length, method;
+  while (++i < n) target[method = arguments[i]] = d3_rebind(target, source, source[method]);
+  return target;
+};
+
+// Method is assumed to be a standard D3 getter-setter:
+// If passed with no arguments, gets the value.
+// If passed with arguments, sets the value and returns the target.
+function d3_rebind(target, source, method) {
+  return function() {
+    var value = method.apply(source, arguments);
+    return value === source ? target : value;
+  };
 }

@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Principle Components Analysis",
+      "category" : "",
+      "tags"     : "ML, AI, dimensionality-reduction, PCA, unsupervised",
+      "url"      : "/machine/learning/PCA.html",
+      "date"     : "2020-04-14 00:00:00 +0530"
+    } ,
+  
+    {
       "title"    : "Bayesian Linear Regression",
       "category" : "",
       "tags"     : "ML, AI, linear-regression, bayesian, bayes",

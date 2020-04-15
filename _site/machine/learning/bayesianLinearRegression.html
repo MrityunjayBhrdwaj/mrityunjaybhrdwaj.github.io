@@ -45,6 +45,10 @@
 
         
           
+            <li><a href="/machine/learning/PCA.html" class="recent-item" ><span>Principle Components Analysis</span></a></li>
+          
+        
+          
             <li><a href="/machine/learning/bayesianLinearRegression.html" class="recent-item" ><span>Bayesian Linear Regression</span></a></li>
           
         
@@ -111,11 +115,9 @@
   <!-- From the web -->
   
     <script src="https://npmcdn.com/chart.js@latest/dist/Chart.bundle.min.js"></script>
+
   
 
-  <script>
-    console.log("imported libraries: "+ 'tensorflowndchart')
-  </script>
 
   <!-- imported the required visualization script for cover-visualization -->
   <article class="article-page">
@@ -123,11 +125,32 @@
       <!-- <div id="cover-viz" class="cover-image" style="background-color: rgb(235, 235, 235); background-size: cover;"></div>
 
       <script type="text/javascript"  
-      src='/assets/viz//bayesianLinearRegression/index.html'>
+      src='/assets/viz//bayesianLinearRegression/index.html'
+      
+      >
     </script> -->
 
-    <iframe style="background-size: cover;padding: 0%;" frameborder=0 class="cover-image" width="90%" align="middle" padding="0" src='/assets/viz//bayesianLinearRegression/index.html'></iframe>
+    <embed id="myFrame" style="background-size: cover;padding: 0%;" frameborder=0 class="cover-image" width="90%" align="middle" padding="0" scrolling="no"></embed>
 
+    <script>
+
+      /*
+loadScript(libraries,'/assets/viz//bayesianLinearRegression/index.html' , function() {
+  //executes after the script is laoded.
+  document.getElementById("myFrame").src = '/assets/viz//bayesianLinearRegression/index.html'
+});*/
+  document.getElementById("myFrame").src = '/assets/viz//bayesianLinearRegression/index.html'
+    </script>
+
+    <!-- <script>
+    loadScript2('/assets/js/dependency/allDep.js', function() {
+      //executes after the script is laoded.
+
+
+      
+      document.getElementById("myFrame").src = '/assets/viz//bayesianLinearRegression/index.html'
+    });
+      </script> -->
       <!-- <div class="cover-image" style="background: url(/assets/img//posts_imgs/bayesianLinearRegression/teaser/darkBLR.png) center no-repeat; background-size: cover;"></div> -->
     </div>
     <div class="wrapper">
@@ -171,6 +194,8 @@
           
         </div>
         <div class="post-nav-next">
+          
+          <a href="/machine/learning/PCA.html">Principle Components Analysis&nbsp;&raquo;</a>
           
         </div>
       </div>

@@ -60,11 +60,9 @@ layout: default
   <!-- From the web -->
   {% if page.dependency contains "chart" %}
     <script src="https://npmcdn.com/chart.js@latest/dist/Chart.bundle.min.js"></script>
+
   {% endif %}
 
-  <script>
-    console.log("imported libraries: "+ '{{page.dependency}}')
-  </script>
 
   <!-- imported the required visualization script for cover-visualization -->
   <article class="article-page">
@@ -72,11 +70,32 @@ layout: default
       <!-- <div id="cover-viz" class="cover-image" style="background-color: rgb(235, 235, 235); background-size: cover;"></div>
 
       <script type="text/javascript"  
-      src='{{"/assets/viz/" | prepend: site.baseurl | append : page.viz}}'>
+      src='{{"/assets/viz/" | prepend: site.baseurl | append : page.viz}}'
+      
+      >
     </script> -->
 
-    <iframe style="background-size: cover;padding: 0%;" frameborder=0 class="cover-image" width="90%" align="middle" padding="0" src='{{"/assets/viz/" | prepend: site.baseurl | append : page.viz}}'></iframe>
+    <embed id="myFrame" style="background-size: cover;padding: 0%;" frameborder=0 class="cover-image" width="90%" align="middle" padding="0" scrolling="no"></embed>
 
+    <script>
+
+      /*
+loadScript(libraries,'{{"/assets/viz/" | prepend: site.baseurl | append : page.viz}}' , function() {
+  //executes after the script is laoded.
+  document.getElementById("myFrame").src = '{{"/assets/viz/" | prepend: site.baseurl | append : page.viz}}'
+});*/
+  document.getElementById("myFrame").src = '{{"/assets/viz/" | prepend: site.baseurl | append : page.viz}}'
+    </script>
+
+    <!-- <script>
+    loadScript2('/assets/js/dependency/allDep.js', function() {
+      //executes after the script is laoded.
+
+
+      
+      document.getElementById("myFrame").src = '{{"/assets/viz/" | prepend: site.baseurl | append : page.viz}}'
+    });
+      </script> -->
       <!-- <div class="cover-image" style="background: url({{"/assets/img/" | prepend: site.baseurl | append : page.img}}) center no-repeat; background-size: cover;"></div> -->
     </div>
     <div class="wrapper">

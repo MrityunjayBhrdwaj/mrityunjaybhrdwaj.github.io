@@ -499,22 +499,6 @@ function darkTheme(chart,chartJSObj) {
         /* set default font color to white */
         chartObj.defaults.global.defaultFontColor = "white";
 
-        /* Creating Glowing Effect */
-        // let draw = chartObj.controllers.line.prototype.draw;
-        // chartObj.controllers.line.prototype.draw = function() {
-        //     draw.apply(this, arguments);
-        //     let ctx = this.chart.chart.ctx;
-        //     let _stroke = ctx.stroke;
-        //     ctx.stroke = function() {
-        //         ctx.save();
-        //         ctx.shadowColor = 'magenta';
-        //         ctx.shadowBlur  = 10;
-        //         ctx.shadowOffsetX = 0;
-        //         ctx.shadowOffsetY = 4;
-        //         _stroke.apply(this, arguments);
-        //         ctx.restore();
-        //     };
-        // };
 
 
         /* set the background color of myChart taken from:-  https://codepen.io/ruchern/pen/OgJqvr  */
