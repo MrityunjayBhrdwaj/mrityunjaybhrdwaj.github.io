@@ -2,6 +2,7 @@
 let data0 = tf.randomNormal([1,10],0,1).transpose();
 let data1 = tf.randomNormal([1,10],0,1).transpose();
 
+const recalcBtn = document.getElementById('reCalculate-btn').style;
 
 let data = data0.concat(data1,axis=1).arraySync();
 
@@ -48,6 +49,7 @@ console.log('yes')
       .style("fill", darkModeCols.green(1))
       .call(drag)
       
+ if((1-recalcBtn.opacity))
   calcPCA(0);
 }
 
@@ -62,6 +64,9 @@ function dragmove(d) {
       .attr('cx', (x ))
       .attr('cy', (y ))
 
+     
+      console.log('salkdfj: ', !recalcBtn.opacity)
+ if((1-recalcBtn.opacity))
   calcPCA(0);
 }
 
