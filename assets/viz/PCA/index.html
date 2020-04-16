@@ -113,16 +113,87 @@
       .theme-slider.round:before {
         border-radius: 50%;
       }
+
+
+      .flex-container {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.flex-container > div {
+  margin: 2%;
+}
     </style>
 </head>
-<body style=" background-color:rgb(10,10,25); color:white;   overflow: hidden;">
+<body style=" background-color:rgb(10,10,25); color:white;   overflow: hidden; height: 700px;">
   <!-- <body> -->
-   
-  <div id="container" style="position: relative; height:40vh; width:80vw; margin-top: 3%" >
 
-    <div id="main-viz"style= "position: relative; width:550px;height:600px; display:inline-block;  margin-left: 5%; " >
+
+
+    
+<div class="flex-container">
+  <div id="dataInput" style='width:500px; height:500px'>
+
+  </div>
+  <div id="componentViz" style='width:500px; height:500px'>
+    
+  </div>
+  <div id="mathViz" style='width:300px;'>
+
+      <h2>Eigen Vectors:</h2>
+
+      <svg height="180px" >
+
+      <g transform="translate(-60,0) scale(.8,.8)">
+      <path fill="rgb(255, 46, 99)" stroke="none" d="m 187,200 38,0 0,-183 -38,0 0,14 21,0 0,155 -21,0 0,14 z" id="corcht" />
+        <text fill="rgb(255, 46, 99)" id="matrix1_0" fill="currentColor" x="105" dy="80" font-size="40"font-weight="700">0.00</text>
+        <text fill="rgb(255, 46, 99)" id="matrix1_1" fill="currentColor" x="105" dy="160" font-size="40"font-weight="700">0.00</text>
+      <use transform="matrix(-1,0,0,1,305,0)" id="use5" x="0" y="0" width="260" height="1030" xlink:href="#corcht"/>
+      </g>
+
+        <g transform="translate(80,0) scale(.8,.8)">
+      <path fill="rgb(255, 46, 99)" stroke="none" d="m 187,200 38,0 0,-183 -38,0 0,14 21,0 0,155 -21,0 0,14 z" id="corcht" />
+        <text fill="rgb(255, 46, 99)" id="matrix2_0" fill="currentColor" x="105" dy="80" font-size="40" font-weight="700">0.00</text>
+        <text fill="rgb(255, 46, 99)" id="matrix2_1" fill="currentColor" x="105" dy="160" font-size="40"font-weight="700">0.00</text>
+      <use transform="matrix(-1,0,0,1,305,0)" id="use5" x="0" y="0" width="260" height="1030" xlink:href="#corcht"/>
+      </g>
+
+
+      </svg>
+      <hr>
+      <h2>Eigen Values:</h2>
+      <h2 id="eigVal0" style='color:rgb(255, 46, 99)' >0.000</h2>
+      <h2 id="eigVal1" style='color:rgb(255, 46, 99)' >0.000</h2>
+      <hr>
+
+        <span id="Settings"style="position:absolute;">
+      <span >Live-Update: </span>
+      <label class="switch" >
+          <input type="checkbox" id="toggle" onclick="(function(){document.getElementById('reCalculate-btn').style.opacity=(1-document.getElementById('reCalculate-btn').style.opacity)})()" checked>
+          <span class="theme-slider round"></span>
+      </label>
+      </span>
+      <div style="margin-top:80px; margin-left:0px;"></div>
+      <button id="reCalculate-btn" onclick="calcPCA()" style="opacity: 0;">RECALCULATE</button>
+      </div>
+
+
+
+  </div> 
+</div>
+
+
+
+
+
+   
+  <!-- <div id="container" style="position: relative; height:40vh; width:80vw; margin-top: 3%" >
+
       <div id="dataInput" >
       </div>
+    <div id="main-viz"style= "position: relative; width:550px;height:600px; display:inline-block;  margin-left: 5%; " >
     </div>
     <div id="componentViz" style= "width:500px;height:600px; display:inline-block;position: relative; "></div>
     <div id="mathViz"style= "width:300px;height:200px; display:inline-block; position:relative; ">
@@ -165,7 +236,7 @@
 
     </div>
     </div>
-
+ -->
 
 
     <script src="Source/data.js"></script>
