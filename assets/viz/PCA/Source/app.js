@@ -9,6 +9,8 @@ let svg2 = d3.select(compViz)
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
+    // .attr("width","100%")
+    // .attr("height","100%")
     .on("click", click)
   .append("g")
     .attr("transform",

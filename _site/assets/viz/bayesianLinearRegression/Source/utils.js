@@ -127,3 +127,16 @@ let darkModeCols = {
     magenta: (alpha = 1) =>`rgba(255,0,255, ${alpha})`,
     violet: (alpha = 1) =>`rgba(255,0,255, ${alpha})`
 };
+
+
+function wait(ms)
+{
+var d = new Date();
+var d2 = null;
+do { d2 = new Date(); }
+while(d2-d < ms);
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}

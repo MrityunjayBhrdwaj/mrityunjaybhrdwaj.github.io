@@ -1,5 +1,5 @@
 function BayesianCurveFitting(trainX,trainY,testX,testY,degree, alpha = 5e-3,beta = 11.1){
-    /* NOTE: this function strongly assume that the noise is gaussian. and currently unimodel. */
+    /* NOTE: this function strongly assume that the noise is gaussian. and  unimodel. */
 
     const nSamples = trainX.shape[0];
     const polyVec  = tf.linspace(0, degree, degree+1).expandDims(1); // array of all the powers 02Degree
@@ -7,6 +7,8 @@ function BayesianCurveFitting(trainX,trainY,testX,testY,degree, alpha = 5e-3,bet
 
     const stdevArr = tf.zeros(trainX.shape).flatten().arraySync();
     const meanArr = stdevArr.slice(0);
+
+
 
     // console.log(nSamples,polyVec,M,nSamples);
     /* sequential curve fitting by taking the trainX samples one by one. */
@@ -59,6 +61,8 @@ function BayesianCurveFitting(trainX,trainY,testX,testY,degree, alpha = 5e-3,bet
         }
         meanArr[i]  = meanVec;
         stdevArr[i] = stdevVec;
+
+
     }
     return {
         /*Incremental mean array */

@@ -75,24 +75,34 @@ function dragmove(d) {
 
 // Visualization:-
 
+const dataInp = document.getElementById('dataInput');
+
+// const vizBody = document.getElementById('vizBody')
 // range of the plot
 const range = {min: -2, max: 10};
 
 // set the dimensions and margins of the graph
-var margin = {top: 10, right: 30, bottom: 30, left: 30},
-    width = 500 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+// var margin = {top: 10, right: 30, bottom: 30, left: 30},
+//     width = (window.innerWidth-20)*((dataInp.style.width.slice(0,2)*1)/100) - margin.left - margin.right,
+//     height = (vizBody.style.height.slice(0,3)*1)*((dataInp.style.height.slice(0,2)*1)/100) - margin.top - margin.bottom;
 
+// console.log((window.innerWidth.slice(0,3)*1), 'askdjfl');
+var margin = {top: 10, right: 30, bottom: 30, left: 30},
+    width = ((window.innerWidth*.25 ))- margin.left - margin.right,
+    height =  ((window.innerWidth*.25))- margin.top - margin.bottom;
 // append the svg object to the body of the page
 
+console.log(width, height, window.innerWidth)
 // const dataInp = document.getElementById('myFrame').contentWindow.document.getElementById('dataInput');
 
-const dataInp = document.getElementById('dataInput');
+// console.log(dataInp.style.width, dataInp.style.height, vizBody.style.width, vizBody.style.height, vizBody.width, )
 
 var svg = d3.select(dataInp)
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
+    // .attr("width","100%")
+    // .attr("height","100%")
     .on("click", click)
     // .call(d3.zoom().on("zoom", function () {
     //         svg.attr("transform", d3.event.transform)

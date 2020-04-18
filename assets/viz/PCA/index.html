@@ -123,8 +123,23 @@
 }
 
 .flex-container > div {
-  margin: 2%;
 }
+
+.flex-grid {
+	display: flex;
+  flex-wrap: wrap;
+  margin-top: 10%;
+}
+.flex-grid-item {
+	flex-grow: 1;
+	flex-shrink: 0;
+	flex-basis: 33.3333%;
+  flex-basis: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
     </style>
 </head>
 <body style=" background-color:rgb(10,10,25); color:white;   overflow: hidden; height: 700px;">
@@ -134,14 +149,16 @@
 
     
 <div class="flex-container">
-  <div id="dataInput" style='width:500px; height:500px'>
+
+  <div class="flex-grid">
+  <div id="dataInput" class="flex-grid-item" style='width:40%; height:50%'>
 
   </div>
-  <div id="componentViz" style='width:500px; height:500px'>
+  <div id="componentViz"  class="flex-grid-item" style='width:40%; height:50%'>
     
   </div>
+  </div>
   <div id="mathViz" style='width:300px;'>
-
       <h2>Eigen Vectors:</h2>
 
       <svg height="180px" >
@@ -180,6 +197,7 @@
       </div>
 
 
+  </div>
 
   </div> 
 </div>
