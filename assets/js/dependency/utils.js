@@ -173,8 +173,14 @@ function normalize(x, meanCenter = 0) {
     x = x.sub(meanX);
   }
 
+  // calculating the norm of all the axis
+  let normVec = x.norm((axis = 1)).reshape([1, 1]);
+  for (let i = 2; i < x.shape[1] + 1; i++) {
+    normVec = normVec.concat(x.norm((axis = i)).reshape([1, 1]), (axis = 1));
+  }
+
   // dividing x with its norm to get normalized x;
-  return x.div(x.norm());
+  return x.div(normVec);
 }
 
 function remap(n, start1, stop1, start2, stop2, withinBounds) {
@@ -312,19 +318,6 @@ function meshGridRange(
  * @param {Array} b array of values in axis=1
  * @throws will throw an error if (a.length != b.length).
  * @returns returns multidim js-array.
- * @example 
- * // inputs:-
- * const a = [1,2];
- * const b = [4,5];
- *
- * // calculating grid:- 
- * const grid = meshGrid(a, b);
- * console.log(grid); 
- 
- * 
- * // [[1, 5], [2, 5]],
- * // [[1, 4], [1, 5]]
- * //
  */
 function meshGrid(a, b) {
   // input must be an array
@@ -333,6 +326,7 @@ function meshGrid(a, b) {
   // // TODO: remove this error function when we fixed its use in all the codes.
   // console.error("MESH GRID FUNCTION HAS BEEN MODIFIED.. check for compactiblity!");
 
+
   if(a.length !== b.length)
     throw new Error (`mismatched size, array must be of same size but give : \n a.length= ${a.length} and b.length =${b.length} `)
 
@@ -340,15 +334,12 @@ function meshGrid(a, b) {
   // for (let i = 0; i < a.length; i++) {
   //   const cRow = []; // current row
   //   const cVal_i = a[i];
-
   //   for (let j = 0; j < b.length; j++) {
   //     const cVal_j = b[j];
   //     cRow.push(cVal_j);
   //   }
   //   gridArray.push([cRow, Array(cRow.length).fill(cVal_i)]);
   // }
-
-
 
   for(let i=0;i< a.length;i++){
     const cRow = [];
@@ -360,8 +351,57 @@ function meshGrid(a, b) {
     gridArray.push(cRow);
   }
 
+
   return gridArray;
 }
+
+function meshTensor(min, max, div, nDims=2){
+
+  const inp = tf.linspace(min, max , div).flatten().arraySync();
+
+  let indexes = Array(nDims).fill(0);
+
+  let nPts = 0;
+  let isFinished = 0; // set the isFinished flag to 1 if indexes[nDims-2] < (div)
+
+  const out = [];
+  while(!isFinished){
+
+    for(let i=0;i< div;i++){
+      const currPt = [];
+
+      nPts ++;
+      for(let j=0;j< nDims;j++){
+        currPt.push( inp[indexes[j]]);
+
+        if((nPts % div**(j)) === 0){
+          indexes[j] = indexes[j]+1;
+
+          if (indexes[nDims-1] === (div)){
+            isFinished = 1;
+            continue;
+          }
+          // if exceed the div then reset
+          if(indexes[j] === (div)){
+            indexes[j] = 0;
+          }
+
+        }
+      }
+      out.push(currPt);
+    }
+
+  }
+
+  return out;
+
+}
+
+
+
+
+
+
 
 /**
  *
@@ -552,9 +592,10 @@ function optimize(
  *
  * @param {object} data input must be a tf tensor object
  */
-function normalizeData(data, unitVariance=0) {
+function normalizeData(data, unitVariance=0, giveMeanStdev=0) {
 
-  let meanCenteredData = data.sub( data.mean(axis = 0) );
+  const mean =  data.mean(axis = 0);
+  const meanCenteredData = data.sub( mean);
 
   if(!unitVariance)
     return meanCenteredData;
@@ -562,17 +603,21 @@ function normalizeData(data, unitVariance=0) {
   const stdev = normalizeData(meanCenteredData, 0).pow(2).mean().sqrt();
 
   // z-score
-  const standardForm = meanCenteredData.div(stdev);
+  data = meanCenteredData.div(stdev);
 
-  return standardForm;
+  if(giveMeanStdev)
+    return {data, mean, stdev};
 
-
+  return data;
 }
 
 function tfCov(tensor){
 
   return tensor.transpose().matMul(tensor).div(tensor.shape[0] -1)
 }
+
+
+
 
 //NOTE: currently support only the [m,k] vector in [m,n] matrix where, k <= (start - n)
 function insert2Tensor(originalTensor, insertTensor, start = []) {
@@ -696,12 +741,15 @@ function tfDiag(X) {
     if (X.shape[0] === X.shape[1]){
          return X.mul( tf.eye(X.shape[0],X.shape[0])).matMul(tf.ones([X.shape[0],1]))
 
-    }else{
-      throw new Error(
-        `input must either be of shape [n,1] or of size [n,n] but given ${v.shape}`
-      );
-
     }
+    
+    if(X.shape[1] !== 1) 
+    {
+      throw new Error(
+        `input must either be of shape [n,1] or of size [n,n] but given ${X.shape}`
+      );
+    }
+
   }
   return X.mul(tf.eye(X.shape[0]));
 }
@@ -712,15 +760,9 @@ function tfDiag(X) {
  * @param {object} Y input must be a tf.tensor and it must be a one hot encoded vector
  * @param {array} percent specify the percentage of train / test data spliting or if 2 values are specified then the second value corresponds to the additional cross-validation set split.
  */
-function trainTestSplit(X, Y, percent) {
+function trainTestSplit(X, Y, percent=0.8, shuffle=true) {
   /**
    * TODO:-
-   * Also, handle the case of 100% train test split.
-   * 
-   * 
-   * 
-   * 
-   * DONE:-
    * 1. split the data according to there corresponding classes
    * 2. shuffle the data points
    * 3. take _percent_ data as a training data and rest of them as test data.
@@ -731,22 +773,25 @@ function trainTestSplit(X, Y, percent) {
 
   percent = percent.length ? percent : [percent]; // if the percent is just a number then convert it into array of length 1
 
-  //  * 1. split the data according to there corresponding classes
+  let totalPercent = 0;
+  for(let i=0;i< percent;i++)
+    totalPercent += percent[i]
 
-  // const classwiseX = classwiseDataSplit(X, Y);
-
-  // for(let i=0;i<classwiseX.length;i++){
-  //   classwiseX = classwiseX.x.concat(classwiseX.y, axis=1);
-  // }
+  if (totalPercent >= 1.0)
+    throw new Error('the total percent must be equal to 1')
 
   let classwiseX = X.concat(Y, axis=1);
 
 
   //  * 2. shuffle the data points of each class
 
+  if (shuffle){
     const currClassXArray = classwiseX.arraySync();
     tf.util.shuffle(currClassXArray);
     classwiseX = tf.tensor(currClassXArray);
+
+  }
+
 
   //  * 3. take _percent_ data as a training data and rest of them as test data.
 
@@ -784,7 +829,7 @@ function trainTestSplit(X, Y, percent) {
                   }];
 
   if (percent.length === 2) {
-    // include corss-validation set
+    // include corss-validation set as well
     retVal.push({
                   x: classwiseXCV.slice([0, 0], [-1, X.shape[1]]), 
                   y: classwiseXCV.slice([0,X.shape[1]], [-1, -1])
@@ -792,6 +837,12 @@ function trainTestSplit(X, Y, percent) {
   }
 
   // add test set
+
+  // if the percent is 1.0 then don't include the test set.
+  if (percent[0] === 1.0)
+    return retVal
+
+
   retVal.push({
                 x: classwiseXTest.slice([0, 0], [-1, X.shape[1]]),
                 y: classwiseXTest.slice([0,X.shape[1]], [-1, -1])
@@ -893,7 +944,6 @@ function pred2Class(predTensor, threshold=0.5, oneHot=true){
   return predClass;
 
 }
-
 
 /**
  * 
@@ -1034,8 +1084,6 @@ function tensorMap(tensor, shape, func=(n,i, d)=>{/**console.log(n,i,d); */ retu
     return {tensor: tensor,index: index}; // TODO: understand why we can't just return the tensor array. by using chrom dev tools
 }
 
-
-
 /**
  * 
  * @param {Array} coord coordinate of the tensor
@@ -1057,7 +1105,6 @@ function coord2Index(coord,shape){
     return index+coord[coord.length -1];
 
 }
-
 
 
 /**
@@ -1112,12 +1159,10 @@ async function tfDeleteAsync(inputTensor, dim=0, axis=0){
     if (dim[i] < shape[axis])
       mask[dim[i]] = 0;
   }
-
   const tensorMask = tf.tensor1d(mask, 'bool');
 
   return tf.booleanMaskAsync(inputTensor, tensorMask, axis) ;
 }
-
 
 
 function tfDeleteSync(inputTensor, dim=0, axis=0){
@@ -1143,11 +1188,8 @@ function tfDeleteSync(inputTensor, dim=0, axis=0){
   
     // "Now it's done!"
     return output
-    console.log('calculated BooleanMask');
   };
   return getBooleanMask();
-
-  return output; 
 
   // const output = await tf.booleanMaskAsync(inputTensor, tensorMask, axis) ;
 
@@ -1253,6 +1295,7 @@ function multivariateGaussian(mean=tf.zeros([2,1]),covariance=tf.zeros([2,2])){
 
   }
 
+
 }
 
 
@@ -1346,34 +1389,202 @@ function tfEigen(tensor, epsilon=.0001, maxItrs=10000){
 
 
 // a template for quickly creating a d3 viz which can be used as input space visualization
-// function inputViz(){
-
-//   this.components = {
-
-//   }
-
-//   this.init = function(divContainer, svgSettings={width: 500, height: 500, rangeX:[-10, 10], rangeY: [-10, 10], }){
-
-//   }
-
-
-
-// }
+function inputViz(divContainer, 
+                       svgSettings={width: 500, 
+                                    height: 500, 
+                                    margin: {top: 0, right: 0, bottom: 0, left: 0},
+                                    rangeX:{min: -10,max: 10}, 
+                                    rangeY:{min: -10,max: 10}, 
+                                    gridIntervel: 8,
+                                    isGrid: true,
+                                    isAxisLine: true
+                                  }, eventHandlers={onClick: ()=>{}, onDrag: ()=>{}}){
 
 
-// Copies a variable number of methods from source to target.
-d3.rebind = function(target, source) {
-  var i = 1, n = arguments.length, method;
-  while (++i < n) target[method = arguments[i]] = d3_rebind(target, source, source[method]);
-  return target;
-};
+  let components = {};
+  // const svgIds = [];
 
-// Method is assumed to be a standard D3 getter-setter:
-// If passed with no arguments, gets the value.
-// If passed with arguments, sets the value and returns the target.
-function d3_rebind(target, source, method) {
-  return function() {
-    var value = method.apply(source, arguments);
-    return value === source ? target : value;
-  };
+  this.getComponents = () =>{ return components}
+
+  // this.getSvgId = () =>{return }
+   function init(){
+    svgSettings = {width: svgSettings.width || 500, 
+                                    height: svgSettings.height || 500, 
+                                    margin: {top: (svgSettings.margin)? svgSettings.margin.top || 40 : 40 ,
+                                             right: (svgSettings.margin)? svgSettings.margin.right ||  40 : 40 , 
+                                             bottom: (svgSettings.margin)? svgSettings.margin.bottom || 40 : 40, 
+                                             left: (svgSettings.margin)? svgSettings.margin.left || 40 : 40 },
+                                    rangeX: svgSettings.rangeX || {min: -10, max: 10},
+                                    rangeY: svgSettings.rangeY || {min: -10, max: 10},
+                                    gridIntervel: svgSettings.gridIntervel || 8,
+                                    isGrid: (svgSettings.isGrid === undefined)? true : svgSettings.isGrid  ,
+                                    isAxisLine: (svgSettings.isAxisLine === undefined)? true : svgSettings.isAxisLine  ,
+                                  }
+
+                                    console.log(svgSettings)
+    
+    // range of the plot
+    const range = {
+                   x : {min: (svgSettings.rangeX.min === undefined)?  5 : svgSettings.rangeX.min, max: (svgSettings.rangeX.max === undefined)?  5 : svgSettings.rangeX.max},
+                   y : {min: (svgSettings.rangeY.min === undefined)?  -5: svgSettings.rangeY.min, max: (svgSettings.rangeY.max === undefined)?  -5: svgSettings.rangeY.max}
+                  }
+
+                   console.log(typeof divContainer)
+    // append the svg object
+    let svgOriginal = ( ((typeof divContainer) === 'object' )? divContainer : d3.select(divContainer) )
+      .append("svg")
+      .attr('id', 'svgContainer')
+        .attr("width", svgSettings.width + svgSettings.margin.left + svgSettings.margin.right)
+        .attr("height", svgSettings.height + svgSettings.margin.top + svgSettings.margin.bottom)
+        .on('click', eventHandlers.onClick)
+     
+     let svg =  svgOriginal
+      .append("g")
+        .attr("transform",
+              "translate(" + svgSettings.margin.left + "," + svgSettings.margin.top + ")")
+
+        // console.log(svg)
+
+    let beforeGridSpace = svg.append('g').attr('id', 'beforeGrid');
+
+
+
+
+    // Add X axis
+    let x = d3.scaleLinear()
+      .domain([range.x.min, range.x.max])
+      .range([ 0, svgSettings.width ]);
+      
+    // Add Y axis
+    let y = d3.scaleLinear()
+      .domain([range.y.min, range.y.max])
+      .range([ svgSettings.height, 0]);
+
+    // converting the pixel coordinate back to the desired range2
+    let xInv = d3.scaleLinear()
+      .domain([ 0, svgSettings.width ])
+      .range([range.x.min, range.x.max]);
+
+    let yInv = d3.scaleLinear()
+      .domain([ svgSettings.height, 0])
+      .range([range.y.min, range.y.max]);
+
+
+    let gridIntervelsX = tf.linspace(range.x.min+1, range.x.max-1, svgSettings.gridIntervel).flatten().arraySync();
+    let gridIntervelsY = tf.linspace(range.y.min+1, range.y.max-1, svgSettings.gridIntervel).flatten().arraySync();
+
+    var lineGenerator = d3.line();
+
+    if(svgSettings.isGrid){
+
+      // vertical grid lines 
+      svg.append('g')
+        .selectAll('path')
+        .data(gridIntervelsX)
+        .enter()
+        .append('path')
+        .attr( 'd', function(d) {return lineGenerator([[x(d),y(range.y.min)],[x(d),y(range.y.max)]])} )
+        .style('stroke', "gray")
+        .attr('opacity', 0.5)
+
+      // horizontal grid lines 
+      svg.append('g')
+        .selectAll('path')
+        .data(gridIntervelsY)
+        .enter()
+        .append('path')
+        .attr( 'd', function(d) {return lineGenerator([[x(range.x.min),y(d)],[x(range.x.max),y(d)]])} )
+        .style('stroke', "gray")
+        .attr('opacity', 0.5)
+
+    }
+
+    let afterGridSpace = svg.append('g').attr('id', 'afterGrid');
+
+    // create frame so that even if the elements in the 'spaces' (like in beforeGridSpace and afterGridSpace) overflows, this doesn't overlap with our axis scales
+
+   const frame = svg.append('g').attr('id', 'frame');
+
+   frame
+   .append('rect')
+   .attr('transform', `translate(${-svgSettings.margin.left}, ${-svgSettings.margin.top})`)
+   .attr('width', svgSettings.width + svgSettings.margin.left + svgSettings.margin.right)
+   .attr('height',svgSettings.margin.top)
+  //  .attr('fill', 'white');
+
+   frame
+   .append('rect')
+   .attr('transform', `translate(${-svgSettings.margin.left}, ${0})`)
+   .attr('width', svgSettings.margin.left)
+   .attr('height',svgSettings.height + svgSettings.margin.bottom)
+  //  .attr('fill', 'blackkk');
+
+   frame
+   .append('rect')
+   .attr('transform', `translate(${0},${svgSettings.height}) `)
+   .attr('width', svgSettings.width)
+   .attr('height',svgSettings.margin.bottom)
+  //  .attr('fill', 'white');
+
+   frame
+   .append('rect')
+   .attr('transform', `translate(${svgSettings.width},${0}) `)
+   .attr('width', svgSettings.margin.right)
+   .attr('height',svgSettings.height + svgSettings.margin.right)
+  //  .attr('fill', 'white');
+
+    svg.append("g")
+      .attr("transform", "translate(0," + svgSettings.height + ")")
+      .call(d3.axisBottom(x));
+
+    svg.append("g")
+      .call(d3.axisLeft(y));
+      
+    const originAxis = svg.append('g').attr('class', 'originAxis')
+
+    if(svgSettings.isAxisLine){
+
+      // origin x-axis
+      originAxis
+        .append('path')
+        .attr( 'd', lineGenerator([[x(range.x.min),y(0)],[x(range.x.max),y(0)]]) )
+        .attr('stroke-width', 3)
+        .attr('opacity', 0.5)
+        .attr('stroke', 'blue');
+
+      // origin y-axis
+      originAxis
+        .append('path')
+        .attr( 'd', lineGenerator([[x(0),y(range.y.min)],[x(0),y(range.y.max)]]) )
+        .attr('stroke-width', 3)
+        .attr('opacity', 0.5)
+        .attr('stroke', 'red');
+
+
+
+    }
+
+        // save all the components for future use...
+        components = {
+          svg, svgSettings, originAxis, conversionFns: {x,y,xInv,yInv}, spaces: {beforeGridSpace, afterGridSpace}, frame
+        }
+  }
+
+  init( );
+
+// return this;
+
 }
+
+
+
+
+/**
+ * inputViz(divContainerName | divElement ,  svgSettings={width: 500, height: 500, 
+ *                                           rangeX:[-10, 10], 
+ *                                           rangeY: [-10, 10], })
+ * 
+ * return svg;
+ * 
+ *  compoents := originAxis, ConversionFns={x, y, xInv, yInv},
+ */
