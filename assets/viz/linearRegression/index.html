@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Linear Regression in JS</title>
+
+    <script src="./dependency/tensorflowJS/tf.min.js"></script>
+    <script src="./dependency/d3.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
+</head>
+<body>
+
+
+
+  <div class="container">
+    <!-- <h1 id="title">Linear Regression</h1> -->
+
+    <div id="linearRegressionViz" >
+
+
+      <div>
+        <h2 class="vizTitle">
+          Data Space
+        </h2>
+        <div id="inputSpaceViz" class="vizContainer"></div>
+      </div>
+
+      <div>
+        <div>
+          <h2 id="loss" class="vizTitle">
+            Loss:  
+          </h2>
+          <div id="lossViz" class="vizContainer">
+          </div>
+        </div>
+
+        <div id="left-panel">
+          <div id="paramContainer">
+
+
+            <div>
+            <hr>
+              Epoch:
+            <div class="number-input" style="padding-top: 0px">
+              <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" >-</button>
+              <input class="quantity" id="epoch" min="0" name="quantity" value="1" type="number">
+              <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus">+</button>
+            </div>
+
+
+              <!-- Epoch: <input type="number" min="0" value="1000" id="epoch" ></input> -->
+            </div>
+
+
+            <div>
+              LearningRate: 
+            </div>
+            <div style="position:relative;width:200px;height:25px;border:0;padding:0;margin:0;">
+
+            <div class="select" style="padding-top: 0; margin:0;">
+            <select id="lrSelect">
+             <!-- style="position:absolute;top:0px;left:0px;width:200px; height:25px;line-height:20px;margin:0;padding:0;" 
+             > -->
+              <option value="0.00001">0.00001</option>
+              <option value="0.0001">0.0001</option>
+              <option value="0.001">0.001</option>
+              <option value="0.03">0.03</option>
+              <option value="0.1">0.1</option>
+              <option value="3">3</option>
+              <option value="10">10</option>
+            </select>
+          </div>
+            <input name="displayValue" id="lrInput" placeholder="add/select a value" id="displayValue" style="position:absolute;top:0px;left:0px;width:183px;width:180px\9;#width:180px;height:21px; height:28px\9;#height:18px;border:1px solid #A9A9A9;" onfocus="this.select()" type="text">
+            </div>
+
+
+            <!-- <div>
+              Threshold: <input type="number" value=".01" id="thresholdValue"></input>
+              <input type="range" min="0" max="1" step=".0001" value=".01" id="threshold" ></input>
+            </div> -->
+
+
+            <div style="margin-top: 0px">
+              useBias: 
+              <label class="switch">
+                <input type="checkbox"  value="0" id="useBias" ></input>
+                <span class="slider round"></span>
+              </label>
+              
+            </div>
+
+            <hr>
+
+          </div>
+        </div>
+
+      <div>
+        <button class="btn" id="button">Recalculate</button>
+      </div>
+      </div>
+
+
+
+    </div>
+  </div>
+<script type="module" src="appAsync.js"></script>
+
+<script>
+</script>
+
+</body>
+</html>
