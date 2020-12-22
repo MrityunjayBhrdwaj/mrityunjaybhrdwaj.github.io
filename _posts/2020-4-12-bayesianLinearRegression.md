@@ -8,8 +8,7 @@ permalink: /:categories/:title.html
 mathjax: true
 author: Mrityunjay
 img: /posts_imgs/bayesianLinearRegression/teaser/darkBLR.png
-viz: /bayesianLinearRegression/index.html
-dependency: [tensorflow, nd, chart]
+viz: bayesianLinearRegression/index.html
 ---
 
 ## What is Bayesian Linear Regression and why should I care?
