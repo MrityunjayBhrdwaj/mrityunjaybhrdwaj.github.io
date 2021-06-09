@@ -3,23 +3,32 @@
   --main-link-color: #ff1e87;
 
   /* Light Mode */
-  --main-bg-color: #fff;
+  /* --main-bg-color: #fff;
   --main-fg-color: #311e3e;
   --main-text-color: #3e3e40;
   --main-footer-color: #efefef;
 
-  --main-post-bg-color: #fff;
+  --main-post-bg-color: #fff; */
 
   /* Dark Mode */
-  /* --main-bg-color: rgb(5, 0, 17); */
+  --main-bg-color: rgb(5, 0, 17);
+
+  /*github dark theme bg color*/
+  --main-bg-color: #0D1117; 
+
+  /*multi-arm bandit's bg color*/
+  --main-bg-color: #191928; 
+  
   /* --main-bg-color: linear-gradient(#323B5C, #2F2E54); */
   
-  /* --main-fg-color: white;
+  --main-fg-color: white;
   --main-text-color: white;
   --main-footer-color: rgb(3, 4, 7);
 
-  --main-post-bg-color: #090618; */
-  /* --main-post-bg-color: #2F3754; */
+  --main-post-bg-color: #090618;
+  --main-post-bg-color: #2F3754;
+  --main-post-bg-color:var(--main-bg-color) /*multi-arm bandit's bg color*/
+
 }
 
 
@@ -807,7 +816,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   color: var(--main-text-color);
   margin: 0;
-  background-color: #fff;
+  background-color: var(--main-bg-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-overflow-scrolling: touch;
@@ -959,7 +968,7 @@ pre code {
   z-index: 10;
   width: 400px;
   height: 100%;
-  background-color: #fffd;
+  background-color: var(--main-bg-color);
   padding: 25px 30px;
   -webkit-transform: translate3d(-400px, 0, 0);
           transform: translate3d(-400px, 0, 0);
@@ -969,6 +978,7 @@ pre code {
   padding: 15px 0 0;
   margin: 0;
   list-style: none;
+  background-color: var(--main-bg-color);
 }
 
 .main-nav ul li {
@@ -1028,7 +1038,7 @@ pre code {
   bottom: 0;
   left: 0;
   z-index: 100;
-  background: #fff;
+  background: var(--main-bg-color);
   -webkit-transition: all .4s ease-in-out;
   transition: all .4s ease-in-out;
   -webkit-transform: translate(0, -100%) scale(0, 0);
@@ -1050,6 +1060,7 @@ pre code {
   padding: 15px;
   border: none;
   border-bottom: 1px solid #d9d9d9;
+  background-color: var(--main-bg-color);
   outline: none;
   font-size: 21px;
   color: var(--main-text-color);
@@ -1216,7 +1227,7 @@ pre code {
   position: relative;
   padding: 0;
   margin: 0;
-  height: 700px;
+  height: 700px; /* default height */
   background-color: #fff;
   overflow: hidden;
 }
