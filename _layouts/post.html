@@ -66,37 +66,8 @@ layout: default
 
   <!-- imported the required visualization script for cover-visualization -->
   <article class="article-page">
-    <div class="page-image">
-      <!-- <div id="cover-viz" class="cover-image" style="background-color: rgb(235, 235, 235); background-size: cover;"></div>
-
-      <script type="text/javascript"  
-      src='{{"/assets/viz/" | prepend: site.baseurl | append : page.viz}}'
-      
-      >
-    </script> -->
-
-    <embed id="myFrame" style="background-size: cover;padding: 0%;" frameborder=0 class="cover-image" width="90%" align="middle" padding="0" scrolling="no" src='{{"/assets/viz/" | prepend: site.baseurl | append : page.viz}}'></embed>
-
-    <!-- <script>
-
-      /*
-loadScript(libraries,'{{"/assets/viz/" | prepend: site.baseurl | append : page.viz}}' , function() {
-  //executes after the script is laoded.
-  document.getElementById("myFrame").src = '{{"/assets/viz/" | prepend: site.baseurl | append : page.viz}}'
-});*/
-  document.getElementById("myFrame").src = '{{"/assets/viz/" | prepend: site.baseurl | append : page.viz}}'
-    </script> -->
-
-    <!-- <script>
-    loadScript2('/assets/js/dependency/allDep.js', function() {
-      //executes after the script is laoded.
-
-
-      
-      document.getElementById("myFrame").src = '{{"/assets/viz/" | prepend: site.baseurl | append : page.viz}}'
-    });
-      </script> -->
-      <!-- <div class="cover-image" style="background: url({{"/assets/img/" | prepend: site.baseurl | append : page.img}}) center no-repeat; background-size: cover;"></div> -->
+    <div class="page-image" style='height: {{page.height}}'>
+      <embed id="myFrame" style="background-size: cover;padding: 0%;" frameborder=0 class="cover-image" width="90%" align="middle" padding="0" scrolling="no" src='{{"/assets/viz/" | prepend: site.baseurl | append : page.viz}}'></embed>
     </div>
     <div class="wrapper">
       <div class="page-content">
