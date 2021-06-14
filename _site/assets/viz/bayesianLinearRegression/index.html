@@ -70,65 +70,65 @@
             }
 
 
-.switch{
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-}
-.switch input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
+            .switch{
+                position: relative;
+                display: inline-block;
+                width: 60px;
+                height: 34px;
+            }
+            .switch input { 
+            opacity: 0;
+            width: 0;
+            height: 0;
+            }
 
-.theme-slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
+            .theme-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+            }
 
-.theme-slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
+            .theme-slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+            }
 
-input:checked + .theme-slider {
-  background-color:  rgb(143, 22, 230);
-    box-shadow: 0 5px 15px rgba(175, 84, 240, 0.774);
-}
+            input:checked + .theme-slider {
+            background-color:  rgb(143, 22, 230);
+                box-shadow: 0 5px 15px rgba(175, 84, 240, 0.774);
+            }
 
-input:focus + .theme-slider {
-  box-shadow: 0 0 1px  rgb(143, 22, 230);
-}
+            input:focus + .theme-slider {
+            box-shadow: 0 0 1px  rgb(143, 22, 230);
+            }
 
-input:checked + .theme-slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
+            input:checked + .theme-slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+            }
 
-/* Rounded sliders */
-.theme-slider.round {
-  border-radius: 34px;
-}
+            /* Rounded sliders */
+            .theme-slider.round {
+            border-radius: 34px;
+            }
 
-.theme-slider.round:before {
-  border-radius: 50%;
-}
+            .theme-slider.round:before {
+            border-radius: 50%;
+            }
             </style>
         </head>
             <body>
@@ -139,13 +139,10 @@ input:checked + .theme-slider:before {
     <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script> -->
     <!-- <script src="../Chart.js/" -->
     <!-- <canvas id="myCanvas" ></canvas> -->
-    <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+    <div class="chart-container" style="position: relative; height:40vh; width:80%">
         <div id="cover-viz" style="width: 80%; margin-left: 5%">
 
         </div>
-        <!-- <canvas id="myCanvas"> -->
-    <!-- </canvas> -->
-
     <div class="ctrl-container">
             <div class="slider-container">
 
@@ -182,9 +179,10 @@ input:checked + .theme-slider:before {
         </div>
     </div>
 
-    <script src="../../../js/dependency/tensorflowJS/tf.min.js"></script>
-    <script src="../../../js/dependency/ndjs/nd.js"></script>
-    <script src="https://npmcdn.com/chart.js@latest/dist/Chart.bundle.min.js"></script>
+    <script src="../../js/dependency/tensorflowJS/tf.min.js"></script>
+    <script src="../../js/dependency/ndjs/nd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    
 
     <script src="dependencies/gaussian-elimination/gauss.js"></script>
     <script src="dependencies/quickSort.js"></script>

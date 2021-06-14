@@ -3,10 +3,27 @@ layout: default
 ---
 <div class="flex-container">
   {% include header.html %}
-  <div class="content wrapper">
-    {{ content }}
   {% include search.html %}
-  {% include pagination.html %}
-  </div> <!-- End Wrapper -->
-  {% include footer.html %}
+
+  <div class="container">
+    <section>
+      {% include main-section.html %}
+    </section>
+    <section id="posts">
+      <div class="content wrapper">
+        {{ content }}
+        {% include pagination.html %}
+      </div> <!-- End Wrapper -->
+    </section>
+    <section>
+      <div style="width: 100%;">
+
+        <div class="content wrapper">
+          {% include author-box.html %}
+        </div> 
+        <!-- <div style="width: 100%; bottom: 0"> -->
+        <!-- </div> -->
+      </div>
+    </section>
+  </div>
 </div>

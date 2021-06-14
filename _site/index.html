@@ -28,11 +28,13 @@
 	<!-- Styles -->
 	<link rel="stylesheet" href="/assets/css/main.css">
 
+	<script src="/assets/js/jquery-3.2.1.min.js"></script>
 </head>
 
 <body>
   <div class="flex-container">
-  <header class="main-header">
+  
+<header class="main-header">
   <div class="wrapper">
     <div class="header-flex">
       <div class="menu-icon-container">
@@ -41,11 +43,22 @@
       <nav class="main-nav">
         <span class="menu-icon-close"><i class="fa fa-times" aria-hidden="true"></i></span>
         <ul>
-
-          <!-- TODO: BRAINSTORM: decide where to put these blog and about page link... i am thinking of in the footer but i also need to put some link on the header (or do i??) -->
-          <!-- <li><a href="/">Blog</a></li>
-          <li><a href="/about">About</a></li> -->
-
+        
+          
+            <li><a href="/machine/learning/linearRegression.html" class="recent-item" ><span>Linear Regression</span></a></li>
+          
+        
+          
+            <li><a href="/machine/learning/gaussianProcesses.html" class="recent-item" ><span>Gaussian Processes</span></a></li>
+          
+        
+          
+            <li><a href="/machine/learning/autoEncoder.html" class="recent-item" ><span>AutoEncoder</span></a></li>
+          
+        
+          
+            <li><a href="/machine/learning/svm.html" class="recent-item" ><span>Support Vector Machine</span></a></li>
+          
         
           
             <li><a href="/machine/learning/PCA.html" class="recent-item" ><span>Principle Components Analysis</span></a></li>
@@ -58,7 +71,7 @@
 
         </ul>
       </nav>
-      <p class="logo"><a href="/">Machine Learning Playground</a></p>
+      <p class="logo"><a href="/">Machine Learning Playgrounds</a></p>
       <div class="search-icon-container">
         <span class="search-icon"><a><i class="fa fa-search" aria-hidden="true"></i></a></span>
       </div>
@@ -71,8 +84,153 @@
 
 </header> <!-- End Header -->
 
-  <div class="content wrapper">
-    <ol class="post-card-box clearfix">
+  <div class="search-box">
+  <div class="wrapper">
+    <div class="search-grid">
+      <form class="search-form">
+        <div id="search-container">
+          <input type="text" id="search-input" class="search" placeholder="Search">
+        </div>
+      </form>
+      <ul id="results-container" class="results-search"></ul>
+      <div class="icon-close-container">
+        <span class="search-icon-close"><i class="fa fa-times" aria-hidden="true"></i></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="container">
+    <section>
+      
+<link rel="stylesheet" href="/assets/css/main-section.css">
+<div class="main-section">
+	<div id="background">
+	</div>
+	<div id="foreground">
+		<h1>Machine Learning Playgrounds</h1>
+		<h3>A platform for <b>Playing</b>, <b>Exploring</b> and <b>Understanding</b> <br> several Machine Learning Algorithms.
+</h3>
+		<br>
+		<br>
+		<a class="link-btn" href="#posts">
+			scroll
+		</a>
+	</div>
+</div>
+<script src="/assets/js/d3.min.js"></script>
+<script src="/assets/js/home.js"></script>
+    </section>
+    <section id="posts">
+      <div class="content wrapper">
+        <ol class="post-card-box clearfix">
+  
+  <li>
+    <div class="post-card">
+      <a href="/machine/learning/linearRegression.html" class="post-card-image" style="background-image: url( /assets/img//posts_imgs/linearRegression/teaser/linearRegression.png )">
+      </a>
+
+      <div class="post-card-body">
+        
+        <a href="/tags#ML" class="tag">|&#32;ML</a>
+        
+        <a href="/tags#AI" class="tag">|&#32;AI</a>
+        
+        <a href="/tags#supervised" class="tag">|&#32;supervised</a>
+        
+        <a href="/tags#linear" class="tag">|&#32;linear</a>
+        
+        <a href="/tags#linear Regression" class="tag">|&#32;linear Regression</a>
+        
+        <a href="/machine/learning/linearRegression.html" class="post-card-link"><h3 class="post-card-title">Linear Regression</h3></a>
+      </div>
+
+    </div>
+  </li>
+  
+  <li>
+    <div class="post-card">
+      <a href="/machine/learning/gaussianProcesses.html" class="post-card-image" style="background-image: url( /assets/img//posts_imgs/gaussianProcesses/teaser/gaussianProcesses.png )">
+      </a>
+
+      <div class="post-card-body">
+        
+        <a href="/tags#ML" class="tag">|&#32;ML</a>
+        
+        <a href="/tags#AI" class="tag">|&#32;AI</a>
+        
+        <a href="/tags#supervised" class="tag">|&#32;supervised</a>
+        
+        <a href="/tags#Kernels" class="tag">|&#32;Kernels</a>
+        
+        <a href="/tags#linear Regression" class="tag">|&#32;linear Regression</a>
+        
+        <a href="/tags#Gaussian" class="tag">|&#32;Gaussian</a>
+        
+        <a href="/tags#Gaussian Processes" class="tag">|&#32;Gaussian Processes</a>
+        
+        <a href="/tags#non-linear" class="tag">|&#32;non-linear</a>
+        
+        <a href="/tags#RKHS" class="tag">|&#32;RKHS</a>
+        
+        <a href="/machine/learning/gaussianProcesses.html" class="post-card-link"><h3 class="post-card-title">Gaussian Processes</h3></a>
+      </div>
+
+    </div>
+  </li>
+  
+  <li>
+    <div class="post-card">
+      <a href="/machine/learning/autoEncoder.html" class="post-card-image" style="background-image: url( /assets/img//posts_imgs/AE/teaser/autoEncoder.png )">
+      </a>
+
+      <div class="post-card-body">
+        
+        <a href="/tags#ML" class="tag">|&#32;ML</a>
+        
+        <a href="/tags#AI" class="tag">|&#32;AI</a>
+        
+        <a href="/tags#dimensionality-reduction" class="tag">|&#32;dimensionality-reduction</a>
+        
+        <a href="/tags#AE" class="tag">|&#32;AE</a>
+        
+        <a href="/tags#supervised" class="tag">|&#32;supervised</a>
+        
+        <a href="/tags#neural-network" class="tag">|&#32;neural-network</a>
+        
+        <a href="/tags#MNIST" class="tag">|&#32;MNIST</a>
+        
+        <a href="/machine/learning/autoEncoder.html" class="post-card-link"><h3 class="post-card-title">AutoEncoder</h3></a>
+      </div>
+
+    </div>
+  </li>
+  
+  <li>
+    <div class="post-card">
+      <a href="/machine/learning/svm.html" class="post-card-image" style="background-image: url( /assets/img//posts_imgs/SVM/teaser/svmPlot3.png )">
+      </a>
+
+      <div class="post-card-body">
+        
+        <a href="/tags#ML" class="tag">|&#32;ML</a>
+        
+        <a href="/tags#AI" class="tag">|&#32;AI</a>
+        
+        <a href="/tags#classification" class="tag">|&#32;classification</a>
+        
+        <a href="/tags#SVM" class="tag">|&#32;SVM</a>
+        
+        <a href="/tags#supervised" class="tag">|&#32;supervised</a>
+        
+        <a href="/tags#Vapnik" class="tag">|&#32;Vapnik</a>
+        
+        <a href="/machine/learning/svm.html" class="post-card-link"><h3 class="post-card-title">Support Vector Machine</h3></a>
+      </div>
+
+    </div>
+  </li>
   
   <li>
     <div class="post-card">
@@ -122,34 +280,52 @@
   
 </ol>
 
-  <div class="search-box">
-  <div class="wrapper">
-    <div class="search-grid">
-      <form class="search-form">
-        <div id="search-container">
-          <input type="text" id="search-input" class="search" placeholder="Search">
-        </div>
-      </form>
-      <ul id="results-container" class="results-search"></ul>
-      <div class="icon-close-container">
-        <span class="search-icon-close"><i class="fa fa-times" aria-hidden="true"></i></span>
+        <div class="pagination clearfix">
+  
+  
+</div>
+
+      </div> <!-- End Wrapper -->
+    </section>
+    <section>
+      <div style="width: 100%;">
+
+        <div class="content wrapper">
+          <div class="author-box">
+  <img src="/assets/img/mrityunjay.png" alt="Machine Learning Playgrounds" class="author-img">
+  <div class="author-desc">
+    <!-- <h2>Machine Learning Playgrounds</h2> -->
+    <h2>About 👋</h2>
+    <p>Machine Learning Playground was created by <a href="https://mrityunjay.ml/">Mrityunjay Bhardwaj</a> while going through several ML Books such as ESL, PRML,Goodfellow etc. The goal of this website is to make machine learning a bit more accessible through interactive visualizations (designed using Mike Bostock’s JavaScript library <a href="https://d3js.org/">D3.js</a>).</p>
+
+    <h2>Acknowledgements 🙏</h2>
+    <p>
+      This website is built using this <a href="https://github.com/artemsheludko/adam-blog">jekyll theme</a> and is
+      heavily Inspired by websites like <a href="seeing-theory.brown.edu/">Seeing Theory</a>, <a href="https://distill.pub/">distill.pub</a>, <a href="https://setosa.io/#/">satosa</a> and many more.
+
+    </p>
+    <ul>
+      
+        <li class="email"><a href="mailto:example.adam@blog.com"><i class="fa fa-envelope-o" aria-hidden="true"></i></a></li>
+      
+      
+        <li class="phone"><a href="tel:044 825 5523"><i class="fa fa-phone" aria-hidden="true"></i></a></li>
+      
+      
+        <li class="website"><a href="https://artemsheludko.github.io" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i></a></li>
+      
+      
+        <li class="twitter"><a href="https://twitter.com/@mrityunjay_99" target="_blank"><i class="fa fa-twitter"></i></a></li>
+      
+    </ul>
+  </div>
+</div>
+        </div> 
+        <!-- <div style="width: 100%; bottom: 0"> -->
+        <!-- </div> -->
       </div>
-    </div>
+    </section>
   </div>
-</div>
-
-  <div class="pagination clearfix">
-  
-  
-</div>
-
-  </div> <!-- End Wrapper -->
-  <footer class="main-footer">
-  <div class="copyright">
-    <p>2020 &copy; <a href="http://localhost:4000"> Machine Learning Playground </a></p>
-  </div>
-</footer> <!-- End Footer -->
-
 </div>
 
   <!-- JS -->

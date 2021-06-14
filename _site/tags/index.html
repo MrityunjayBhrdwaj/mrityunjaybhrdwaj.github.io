@@ -28,11 +28,13 @@
 	<!-- Styles -->
 	<link rel="stylesheet" href="/assets/css/main.css">
 
+	<script src="/assets/js/jquery-3.2.1.min.js"></script>
 </head>
 
 <body>
   <div class="flex-container">
-  <header class="main-header">
+  
+<header class="main-header">
   <div class="wrapper">
     <div class="header-flex">
       <div class="menu-icon-container">
@@ -41,11 +43,22 @@
       <nav class="main-nav">
         <span class="menu-icon-close"><i class="fa fa-times" aria-hidden="true"></i></span>
         <ul>
-
-          <!-- TODO: BRAINSTORM: decide where to put these blog and about page link... i am thinking of in the footer but i also need to put some link on the header (or do i??) -->
-          <!-- <li><a href="/">Blog</a></li>
-          <li><a href="/about">About</a></li> -->
-
+        
+          
+            <li><a href="/machine/learning/linearRegression.html" class="recent-item" ><span>Linear Regression</span></a></li>
+          
+        
+          
+            <li><a href="/machine/learning/gaussianProcesses.html" class="recent-item" ><span>Gaussian Processes</span></a></li>
+          
+        
+          
+            <li><a href="/machine/learning/autoEncoder.html" class="recent-item" ><span>AutoEncoder</span></a></li>
+          
+        
+          
+            <li><a href="/machine/learning/svm.html" class="recent-item" ><span>Support Vector Machine</span></a></li>
+          
         
           
             <li><a href="/machine/learning/PCA.html" class="recent-item" ><span>Principle Components Analysis</span></a></li>
@@ -58,7 +71,7 @@
 
         </ul>
       </nav>
-      <p class="logo"><a href="/">Machine Learning Playground</a></p>
+      <p class="logo"><a href="/">Machine Learning Playgrounds</a></p>
       <div class="search-icon-container">
         <span class="search-icon"><a><i class="fa fa-search" aria-hidden="true"></i></a></span>
       </div>
@@ -71,8 +84,47 @@
 
 </header> <!-- End Header -->
 
-  <div class="content wrapper">
-    
+  <div class="search-box">
+  <div class="wrapper">
+    <div class="search-grid">
+      <form class="search-form">
+        <div id="search-container">
+          <input type="text" id="search-input" class="search" placeholder="Search">
+        </div>
+      </form>
+      <ul id="results-container" class="results-search"></ul>
+      <div class="icon-close-container">
+        <span class="search-icon-close"><i class="fa fa-times" aria-hidden="true"></i></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="container">
+    <section>
+      
+<link rel="stylesheet" href="/assets/css/main-section.css">
+<div class="main-section">
+	<div id="background">
+	</div>
+	<div id="foreground">
+		<h1>Machine Learning Playgrounds</h1>
+		<h3>A platform for <b>Playing</b>, <b>Exploring</b> and <b>Understanding</b> <br> several Machine Learning Algorithms.
+</h3>
+		<br>
+		<br>
+		<a class="link-btn" href="#posts">
+			scroll
+		</a>
+	</div>
+</div>
+<script src="/assets/js/d3.min.js"></script>
+<script src="/assets/js/home.js"></script>
+    </section>
+    <section id="posts">
+      <div class="content wrapper">
+        
 
 
 <section class="blog-tags">
@@ -81,13 +133,37 @@
 <!--  cycles through tag list and creates header row of all tags used in site with accompanying per-tag counts...-->
   
     
-    <li ><a href="#AI" class="tag">AI <span>(2)</span></a></li>
+    <li ><a href="#AE" class="tag">AE <span>(1)</span></a></li>
   
     
-    <li ><a href="#ML" class="tag">ML <span>(2)</span></a></li>
+    <li ><a href="#AI" class="tag">AI <span>(6)</span></a></li>
+  
+    
+    <li ><a href="#Gaussian" class="tag">Gaussian <span>(1)</span></a></li>
+  
+    
+    <li ><a href="#Gaussian+Processes" class="tag">Gaussian Processes <span>(1)</span></a></li>
+  
+    
+    <li ><a href="#Kernels" class="tag">Kernels <span>(1)</span></a></li>
+  
+    
+    <li ><a href="#ML" class="tag">ML <span>(6)</span></a></li>
+  
+    
+    <li ><a href="#MNIST" class="tag">MNIST <span>(1)</span></a></li>
   
     
     <li ><a href="#PCA" class="tag">PCA <span>(1)</span></a></li>
+  
+    
+    <li ><a href="#RKHS" class="tag">RKHS <span>(1)</span></a></li>
+  
+    
+    <li ><a href="#SVM" class="tag">SVM <span>(1)</span></a></li>
+  
+    
+    <li ><a href="#Vapnik" class="tag">Vapnik <span>(1)</span></a></li>
   
     
     <li ><a href="#bayes" class="tag">bayes <span>(1)</span></a></li>
@@ -96,10 +172,28 @@
     <li ><a href="#bayesian" class="tag">bayesian <span>(1)</span></a></li>
   
     
-    <li ><a href="#dimensionality-reduction" class="tag">dimensionality-reduction <span>(1)</span></a></li>
+    <li ><a href="#classification" class="tag">classification <span>(1)</span></a></li>
+  
+    
+    <li ><a href="#dimensionality-reduction" class="tag">dimensionality-reduction <span>(2)</span></a></li>
+  
+    
+    <li ><a href="#linear" class="tag">linear <span>(1)</span></a></li>
+  
+    
+    <li ><a href="#linear+Regression" class="tag">linear Regression <span>(2)</span></a></li>
   
     
     <li ><a href="#linear-regression" class="tag">linear-regression <span>(1)</span></a></li>
+  
+    
+    <li ><a href="#neural-network" class="tag">neural-network <span>(1)</span></a></li>
+  
+    
+    <li ><a href="#non-linear" class="tag">non-linear <span>(1)</span></a></li>
+  
+    
+    <li ><a href="#supervised" class="tag">supervised <span>(4)</span></a></li>
   
     
     <li ><a href="#unsupervised" class="tag">unsupervised <span>(1)</span></a></li>
@@ -108,8 +202,38 @@
 <!--cycles through tag list and creates subheader for each tag name...-->
   
     
+  <h2 id="AE">AE</h2>
+<!--  lists all posts corresponding to specific tag...-->
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/autoEncoder.html">AutoEncoder</a></span>
+        <small><span>| 20 May 2020</span></small>
+    </div>
+    
+  
+    
   <h2 id="AI">AI</h2>
 <!--  lists all posts corresponding to specific tag...-->
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/linearRegression.html">Linear Regression</a></span>
+        <small><span>| 28 Jul 2020</span></small>
+    </div>
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/gaussianProcesses.html">Gaussian Processes</a></span>
+        <small><span>| 24 Jun 2020</span></small>
+    </div>
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/autoEncoder.html">AutoEncoder</a></span>
+        <small><span>| 20 May 2020</span></small>
+    </div>
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/svm.html">Support Vector Machine</a></span>
+        <small><span>| 15 May 2020</span></small>
+    </div>
     
     <div class="tag-list">
         <span><a href="/machine/learning/PCA.html">Principle Components Analysis</a></span>
@@ -123,8 +247,58 @@
     
   
     
+  <h2 id="Gaussian">Gaussian</h2>
+<!--  lists all posts corresponding to specific tag...-->
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/gaussianProcesses.html">Gaussian Processes</a></span>
+        <small><span>| 24 Jun 2020</span></small>
+    </div>
+    
+  
+    
+  <h2 id="Gaussian+Processes">Gaussian Processes</h2>
+<!--  lists all posts corresponding to specific tag...-->
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/gaussianProcesses.html">Gaussian Processes</a></span>
+        <small><span>| 24 Jun 2020</span></small>
+    </div>
+    
+  
+    
+  <h2 id="Kernels">Kernels</h2>
+<!--  lists all posts corresponding to specific tag...-->
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/gaussianProcesses.html">Gaussian Processes</a></span>
+        <small><span>| 24 Jun 2020</span></small>
+    </div>
+    
+  
+    
   <h2 id="ML">ML</h2>
 <!--  lists all posts corresponding to specific tag...-->
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/linearRegression.html">Linear Regression</a></span>
+        <small><span>| 28 Jul 2020</span></small>
+    </div>
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/gaussianProcesses.html">Gaussian Processes</a></span>
+        <small><span>| 24 Jun 2020</span></small>
+    </div>
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/autoEncoder.html">AutoEncoder</a></span>
+        <small><span>| 20 May 2020</span></small>
+    </div>
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/svm.html">Support Vector Machine</a></span>
+        <small><span>| 15 May 2020</span></small>
+    </div>
     
     <div class="tag-list">
         <span><a href="/machine/learning/PCA.html">Principle Components Analysis</a></span>
@@ -134,6 +308,16 @@
     <div class="tag-list">
         <span><a href="/machine/learning/bayesianLinearRegression.html">Bayesian Linear Regression</a></span>
         <small><span>| 12 Apr 2020</span></small>
+    </div>
+    
+  
+    
+  <h2 id="MNIST">MNIST</h2>
+<!--  lists all posts corresponding to specific tag...-->
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/autoEncoder.html">AutoEncoder</a></span>
+        <small><span>| 20 May 2020</span></small>
     </div>
     
   
@@ -144,6 +328,36 @@
     <div class="tag-list">
         <span><a href="/machine/learning/PCA.html">Principle Components Analysis</a></span>
         <small><span>| 14 Apr 2020</span></small>
+    </div>
+    
+  
+    
+  <h2 id="RKHS">RKHS</h2>
+<!--  lists all posts corresponding to specific tag...-->
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/gaussianProcesses.html">Gaussian Processes</a></span>
+        <small><span>| 24 Jun 2020</span></small>
+    </div>
+    
+  
+    
+  <h2 id="SVM">SVM</h2>
+<!--  lists all posts corresponding to specific tag...-->
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/svm.html">Support Vector Machine</a></span>
+        <small><span>| 15 May 2020</span></small>
+    </div>
+    
+  
+    
+  <h2 id="Vapnik">Vapnik</h2>
+<!--  lists all posts corresponding to specific tag...-->
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/svm.html">Support Vector Machine</a></span>
+        <small><span>| 15 May 2020</span></small>
     </div>
     
   
@@ -168,12 +382,52 @@
     
   
     
+  <h2 id="classification">classification</h2>
+<!--  lists all posts corresponding to specific tag...-->
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/svm.html">Support Vector Machine</a></span>
+        <small><span>| 15 May 2020</span></small>
+    </div>
+    
+  
+    
   <h2 id="dimensionality-reduction">dimensionality-reduction</h2>
 <!--  lists all posts corresponding to specific tag...-->
     
     <div class="tag-list">
+        <span><a href="/machine/learning/autoEncoder.html">AutoEncoder</a></span>
+        <small><span>| 20 May 2020</span></small>
+    </div>
+    
+    <div class="tag-list">
         <span><a href="/machine/learning/PCA.html">Principle Components Analysis</a></span>
         <small><span>| 14 Apr 2020</span></small>
+    </div>
+    
+  
+    
+  <h2 id="linear">linear</h2>
+<!--  lists all posts corresponding to specific tag...-->
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/linearRegression.html">Linear Regression</a></span>
+        <small><span>| 28 Jul 2020</span></small>
+    </div>
+    
+  
+    
+  <h2 id="linear+Regression">linear Regression</h2>
+<!--  lists all posts corresponding to specific tag...-->
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/linearRegression.html">Linear Regression</a></span>
+        <small><span>| 28 Jul 2020</span></small>
+    </div>
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/gaussianProcesses.html">Gaussian Processes</a></span>
+        <small><span>| 24 Jun 2020</span></small>
     </div>
     
   
@@ -184,6 +438,51 @@
     <div class="tag-list">
         <span><a href="/machine/learning/bayesianLinearRegression.html">Bayesian Linear Regression</a></span>
         <small><span>| 12 Apr 2020</span></small>
+    </div>
+    
+  
+    
+  <h2 id="neural-network">neural-network</h2>
+<!--  lists all posts corresponding to specific tag...-->
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/autoEncoder.html">AutoEncoder</a></span>
+        <small><span>| 20 May 2020</span></small>
+    </div>
+    
+  
+    
+  <h2 id="non-linear">non-linear</h2>
+<!--  lists all posts corresponding to specific tag...-->
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/gaussianProcesses.html">Gaussian Processes</a></span>
+        <small><span>| 24 Jun 2020</span></small>
+    </div>
+    
+  
+    
+  <h2 id="supervised">supervised</h2>
+<!--  lists all posts corresponding to specific tag...-->
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/linearRegression.html">Linear Regression</a></span>
+        <small><span>| 28 Jul 2020</span></small>
+    </div>
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/gaussianProcesses.html">Gaussian Processes</a></span>
+        <small><span>| 24 Jun 2020</span></small>
+    </div>
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/autoEncoder.html">AutoEncoder</a></span>
+        <small><span>| 20 May 2020</span></small>
+    </div>
+    
+    <div class="tag-list">
+        <span><a href="/machine/learning/svm.html">Support Vector Machine</a></span>
+        <small><span>| 15 May 2020</span></small>
     </div>
     
   
@@ -199,34 +498,52 @@
   
 </section>
 
-  <div class="search-box">
-  <div class="wrapper">
-    <div class="search-grid">
-      <form class="search-form">
-        <div id="search-container">
-          <input type="text" id="search-input" class="search" placeholder="Search">
-        </div>
-      </form>
-      <ul id="results-container" class="results-search"></ul>
-      <div class="icon-close-container">
-        <span class="search-icon-close"><i class="fa fa-times" aria-hidden="true"></i></span>
+        <div class="pagination clearfix">
+  
+  
+</div>
+
+      </div> <!-- End Wrapper -->
+    </section>
+    <section>
+      <div style="width: 100%;">
+
+        <div class="content wrapper">
+          <div class="author-box">
+  <img src="/assets/img/mrityunjay.png" alt="Machine Learning Playgrounds" class="author-img">
+  <div class="author-desc">
+    <!-- <h2>Machine Learning Playgrounds</h2> -->
+    <h2>About 👋</h2>
+    <p>Machine Learning Playground was created by <a href="https://mrityunjay.ml/">Mrityunjay Bhardwaj</a> while going through several ML Books such as ESL, PRML,Goodfellow etc. The goal of this website is to make machine learning a bit more accessible through interactive visualizations (designed using Mike Bostock’s JavaScript library <a href="https://d3js.org/">D3.js</a>).</p>
+
+    <h2>Acknowledgements 🙏</h2>
+    <p>
+      This website is built using this <a href="https://github.com/artemsheludko/adam-blog">jekyll theme</a> and is
+      heavily Inspired by websites like <a href="seeing-theory.brown.edu/">Seeing Theory</a>, <a href="https://distill.pub/">distill.pub</a>, <a href="https://setosa.io/#/">satosa</a> and many more.
+
+    </p>
+    <ul>
+      
+        <li class="email"><a href="mailto:example.adam@blog.com"><i class="fa fa-envelope-o" aria-hidden="true"></i></a></li>
+      
+      
+        <li class="phone"><a href="tel:044 825 5523"><i class="fa fa-phone" aria-hidden="true"></i></a></li>
+      
+      
+        <li class="website"><a href="https://artemsheludko.github.io" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i></a></li>
+      
+      
+        <li class="twitter"><a href="https://twitter.com/@mrityunjay_99" target="_blank"><i class="fa fa-twitter"></i></a></li>
+      
+    </ul>
+  </div>
+</div>
+        </div> 
+        <!-- <div style="width: 100%; bottom: 0"> -->
+        <!-- </div> -->
       </div>
-    </div>
+    </section>
   </div>
-</div>
-
-  <div class="pagination clearfix">
-  
-  
-</div>
-
-  </div> <!-- End Wrapper -->
-  <footer class="main-footer">
-  <div class="copyright">
-    <p>2020 &copy; <a href="http://localhost:4000"> Machine Learning Playground </a></p>
-  </div>
-</footer> <!-- End Footer -->
-
 </div>
 
   <!-- JS -->

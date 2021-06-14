@@ -1,6 +1,38 @@
 [
   
     {
+      "title"    : "Linear Regression",
+      "category" : "",
+      "tags"     : "ML, AI, supervised, linear, linear Regression",
+      "url"      : "/machine/learning/linearRegression.html",
+      "date"     : "2020-07-28 00:00:00 +0530"
+    } ,
+  
+    {
+      "title"    : "Gaussian Processes",
+      "category" : "",
+      "tags"     : "ML, AI, supervised, Kernels, linear Regression, Gaussian, Gaussian Processes, non-linear, RKHS",
+      "url"      : "/machine/learning/gaussianProcesses.html",
+      "date"     : "2020-06-24 00:00:00 +0530"
+    } ,
+  
+    {
+      "title"    : "AutoEncoder",
+      "category" : "",
+      "tags"     : "ML, AI, dimensionality-reduction, AE, supervised, neural-network, MNIST",
+      "url"      : "/machine/learning/autoEncoder.html",
+      "date"     : "2020-05-20 00:00:00 +0530"
+    } ,
+  
+    {
+      "title"    : "Support Vector Machine",
+      "category" : "",
+      "tags"     : "ML, AI, classification, SVM, supervised, Vapnik",
+      "url"      : "/machine/learning/svm.html",
+      "date"     : "2020-05-15 00:00:00 +0530"
+    } ,
+  
+    {
       "title"    : "Principle Components Analysis",
       "category" : "",
       "tags"     : "ML, AI, dimensionality-reduction, PCA, unsupervised",
