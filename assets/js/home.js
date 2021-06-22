@@ -4,6 +4,7 @@
 var width = d3.select("#background").node().clientWidth,
     height = d3.select("#background").node().clientHeight;
 
+    console.log('main-section', width, height)
 var num = 300,
     base = 4,
     dif = 12;

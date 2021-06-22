@@ -387,6 +387,7 @@ html {
  */
 body {
   margin: 0;
+  /* overflow-y: hidden; */
 }
 
 /**
@@ -403,19 +404,24 @@ section {
 
 
 .container {
+  /* margin-top: -15vh; */
   width: 100%;
-  height: 100%;
+  height: 84vh;
   /* scroll-snap-type: y mandatory; */
   /* scroll-snap-points-y: (300px); */
-  /* overflow-y: scroll; */
+  overflow-y: scroll;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: y mandatory;
 }
 
 .container section {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
+  /* height: 90vh; */
+  height: inherit;
   scroll-snap-align: start;
 
 }
@@ -839,13 +845,17 @@ body {
   color: var(--main-text-color);
   margin: 0;
   background-color: var(--main-bg-color);
-  -webkit-font-smoothing: antialiased;
+  /* -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-overflow-scrolling: touch;
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y mandatory; */
   /* overflow: hidden; */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+
+  /* IE and Edge */
+  /* -ms-overflow-style: none;  */
+
+   /* Firefox */
+  /* scrollbar-width: none;  */
 }
 div.sticky {
   position: -webkit-sticky;
@@ -892,6 +902,8 @@ pre code {
 
 .flex-container {
   background: var(--main-bg-color);
+  /* height: 100%; */
+  height: max-content;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -901,7 +913,7 @@ pre code {
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   -webkit-transition: -webkit-transform 0.4s cubic-bezier(0.16, 0.68, 0.43, 0.99);
   transition: -webkit-transform 0.4s cubic-bezier(0.16, 0.68, 0.43, 0.99);
   transition: transform 0.4s cubic-bezier(0.16, 0.68, 0.43, 0.99);
@@ -1406,7 +1418,7 @@ div.sticky {
   margin-top: 30px;
   padding-bottom: 60px;
   margin-bottom: 30px;
-  border-bottom: 1px solid #efefef;
+  border: 1px solid #efefef;
 }
 
 .newsletter .newsletter-title {
@@ -1495,6 +1507,7 @@ div.sticky {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  flex-direction: row;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
       -ms-flex-pack: center;
@@ -1732,6 +1745,14 @@ div.sticky {
 /* = = = = = = = = = = Media = = = = = = = = = = */
 /* Small Devices, Tablets */
 @media only screen and (max-width: 768px) {
+  .container{
+    height: 110vh;
+    overflow-y: visible;
+  }
+
+  .author-box{
+    flex-direction: column;
+  }
   .main-header .logo a {
     font-size: 24px;
   }

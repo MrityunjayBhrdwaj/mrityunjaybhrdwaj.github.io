@@ -1,6 +1,7 @@
 .main-section {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
+  height: inherit;
 }
 
 #foreground {
@@ -20,7 +21,7 @@
   /* width: 100%;
   height: 100%; */
   width: 100%;
-  height: 100%;
+  height: inherit;
   /* transform: translateY(-10%); */
   /* margin-top: -50vh; */
 }
