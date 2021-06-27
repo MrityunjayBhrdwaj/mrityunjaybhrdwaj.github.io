@@ -162,7 +162,7 @@ export function sortAB(A, B) {
  * @param {boolean} spawnPoints should we add on click data points?
  * @return {object} all the components which construct this input viz
  */
-export function inputViz(divContainer, svgSettings, spawnPoints = true) {
+export function inputViz(divContainer, svgSettings, spawnPoints = true, dragfn) {
   const {
     width = 500,
     height = 500,
@@ -239,6 +239,7 @@ export function inputViz(divContainer, svgSettings, spawnPoints = true) {
     const x = d3.event.x;
     const y = d3.event.y;
     d3.select(this).attr('cx', x).attr('cy', y);
+    dragfn(x,y)
   }
 
   // append the svg object

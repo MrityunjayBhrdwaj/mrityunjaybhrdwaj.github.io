@@ -6,6 +6,16 @@ import { sortAB, darkModeCols, inputViz, linePlot } from './dependency/utils.mjs
 // TODO: add Pause/Play, restart and next step btn.
 // TODO: Decide upon the design language like specify where the no. of epoch should go etc.
 
+
+// TODO:
+// Fix the problem of fluctuating epochs and values
+    // how to reproduce: set epoch to 1000 (some large no.) before hitting max_epoch recalucate
+    // see the values(epochs and residuls) fluctuating.. 
+// Update the residuals before finishing the training.
+    // how to reporduce before hitting max_epoch drag and drop a random point
+    // the height of the residuals remains the same i.e, doesn't stick to the updated 'y' values 
+    // of our regression line.
+
 // DONE:
 // fix useBias initialziation issue
 // fix the styling of the learning rate and make it opertaional
@@ -18,7 +28,8 @@ const lrInputElem = document.getElementById('lrInput')
 const lrSelectElem = document.getElementById('lrSelect');
 const useBiasElem = document.getElementById('useBias');
 const epochElem = document.getElementById('epoch');
-
+const showResidualsElem = document.getElementById('showResiduals');
+let showResiduals = showResidualsElem.checked;
 
 /* Specifing the behaviour of UI elements */
 
@@ -43,11 +54,16 @@ lrInputElem.onchange = function () {
   console.log('learningRateElemVal:- ', modelParams.learningRate );
 };
 
-
 useBiasElem.oninput = function () {
 
   modelParams.useBias = this.checked * 1;
   console.log(this.checked);
+};
+
+showResidualsElem.oninput = function () {
+
+  showResiduals = this.checked * 1;
+  clearResiduals();
 };
 
 epochElem.oninput = function () {
@@ -77,7 +93,30 @@ const inputVizObj = inputViz(
     margin: { top: 5, bottom: 10, left: 25, right: 10 },
   },
   true /* spawn points on click */
-);
+  ,
+  (x,y)=>{
+    console.log('dragging..')
+    const dataPoints = fetchDataPoints();
+    trainX = dataPoints[0];
+    trainY = dataPoints[1];
+
+    // let dataX = [];
+    // let dataY = [];
+
+    // const dataPts = dataPointsGrp._groups[0][0].childNodes;
+
+    // for (let i = 0; i < dataPts.length; i++) {
+    //   dataX.push(xInvScale(dataPts[i].attributes.cx.value));
+    //   dataY.push(yInvScale(dataPts[i].attributes.cy.value));
+    // }
+    const predY = model.test(trainX)
+
+    // if (currPredY !== null)
+    if (showResiduals)
+      updateResiduals(predY)
+
+  }
+)
 const svg = inputVizObj.svg;
 svg.style('color', 'white');
 
@@ -90,6 +129,7 @@ const dataPointsGrp = inputVizObj.dataPointsGrp;
 // creating group for regression line
 const afterGridSpace = inputVizObj.spaces.afterGridSpace;
 const regLineGrp = afterGridSpace.append('g').attr('class', 'regressionLine');
+const residualsGrp = afterGridSpace.append('g').attr('class', 'residuals');
 
 // fetching important info from inputVizObj
 const xScale = inputVizObj.conversionFns.x;
@@ -103,10 +143,10 @@ let model = null;
 // initializing the data Arrays
 let trainX = null;
 let trainY = null;
-/**
- * Updating the visualization
- */
-function updateViz() {
+let currPredY = null;
+
+function fetchDataPoints(){
+
   let dataX = [];
   let dataY = [];
 
@@ -121,16 +161,25 @@ function updateViz() {
   [dataX, dataY] = sortAB(dataX, dataY);
 
   const nSamples = dataPts.length;
-  trainX = tf.tensor(dataX).expandDims().transpose();
-  trainY = tf.tensor(dataY).expandDims().transpose();
+  const trainX = tf.tensor(dataX).expandDims().transpose();
+  const trainY = tf.tensor(dataY).expandDims().transpose();
+  return [trainX,trainY]
+}
 
+/**
+ * Updating the visualization
+ */
+function updateViz() {
+  const dataPoints = fetchDataPoints();
+  trainX = dataPoints[0];
+  trainY = dataPoints[1];
+  
   console.log('modelParams', modelParams);
 
   model = new LinearRegression(
     modelParams,
     callback
   );
-
 
   // reinitializing for next episode
   lossArray = [];
@@ -141,6 +190,44 @@ function updateViz() {
 
 let lossArray = [];
 let metricArray = [];
+
+function clearResiduals(){
+
+  const residualsSelect = residualsGrp.selectAll('rect');
+  residualsSelect.remove();
+
+}
+
+function updateResiduals(yPred){
+
+  const residualsData = yPred
+    .flatten()
+    .arraySync()
+    .map((y, i) => {
+      const diff = yScale(trainY.flatten().arraySync()[i]) - yScale( y)
+      const isNeg = diff < 0;
+      return { x1: trainX.flatten().arraySync()[i], y1: trainY.flatten().arraySync()[i], 
+                height: Math.abs(diff), isNeg: isNeg };
+    });
+
+
+    const residualsSelect = residualsGrp.selectAll('rect');
+    residualsSelect
+      .data(residualsData)
+      .enter()
+      .append('rect')
+      .merge(residualsSelect)
+      .transition()
+      .duration(10)
+      .ease(d3.easeCubic)
+      .attr('x',(d)=>{return xScale(d.x1)})
+      .attr('y',(d)=>{return d.isNeg?  yScale(d.y1): yScale(d.y1) - d.height })
+      .attr('height', d=>d.height)
+      .attr('width', d=>d.height)
+      .attr('fill', darkModeCols.red(0.5))
+      .attr('stroke', darkModeCols.red(1.0))
+      .attr('stroke-width', 2.5)
+}
 
 /**
  * A callback function which gets invoked at the end of each epoch and update our visualization.
@@ -156,6 +243,8 @@ function callback(epoch, cLoss, cWeights, yPred) {
     const domainPoints = tf.linspace(-5, 5, 100).expandDims().transpose();
     const domainPredY = model.test(domainPoints);
 
+    currPredY = yPred;
+
     /* updating our input space visualzer */
 
     // preparing our regression line data
@@ -165,6 +254,7 @@ function callback(epoch, cLoss, cWeights, yPred) {
       .map((y, i) => {
         return { x: domainPoints.flatten().arraySync()[i], y: y };
       });
+
 
     // updating our visualizer
     const regLineSelect = regLineGrp.selectAll('path');
@@ -194,6 +284,8 @@ function callback(epoch, cLoss, cWeights, yPred) {
       .on('end', resolve);
 
     /* visualizing the loss */
+    if(showResiduals)
+      updateResiduals(yPred);
 
     // adding the current loss to our loss array
     lossArray.push(cLoss);
@@ -208,8 +300,6 @@ function callback(epoch, cLoss, cWeights, yPred) {
       }),
       series: ['loss'],
     };
-
-
 
     // const surface = document.querySelector('#lossViz');
     // window.tfvis.render.linechart(surface, data, { width: 250, height: 125 });
