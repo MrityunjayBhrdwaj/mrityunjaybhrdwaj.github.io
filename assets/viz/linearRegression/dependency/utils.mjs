@@ -242,6 +242,8 @@ export function inputViz(divContainer, svgSettings, spawnPoints = true, dragfn) 
     dragfn(x,y)
   }
 
+  const svgContainerWidth =  width + margin.left + margin.right;
+
   // append the svg object
   const svg = (typeof divContainer === 'object'
     ? divContainer
@@ -249,7 +251,7 @@ export function inputViz(divContainer, svgSettings, spawnPoints = true, dragfn) 
   )
     .append('svg')
     .attr('id', 'svgContainer')
-    .attr('width', width + margin.left + margin.right)
+    .attr('width', svgContainerWidth)
     .attr('height', height + margin.top + margin.bottom)
     // .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
     .on('click', spawnPoints ? click : null);
@@ -354,10 +356,11 @@ export function inputViz(divContainer, svgSettings, spawnPoints = true, dragfn) 
     .attr('width', width)
     .attr('height', margin.bottom + margin.bottom + margin.top);
 
+    const rightFramePosX = width - margin.right;
   frame
     .append('rect')
-    .attr('transform', `translate(${width - margin.right},${0}) `)
-    .attr('width', margin.right)
+    .attr('transform', `translate(${rightFramePosX},${0}) `)
+    .attr('width',svgContainerWidth - rightFramePosX )
     .attr('height', height + margin.right);
 
   svg
