@@ -41,18 +41,10 @@ btnElem.addEventListener('click', () => {
 
 
 lrSelectElem.onchange = function(){
-  lrInputElem.value = this.options[this.selectedIndex].value * 1;
-
   modelParams.learningRate = this.options[this.selectedIndex].value * 1;
 
   console.log('learningRateElemVal:- ', modelParams.learningRate);
 }
-
-lrInputElem.onchange = function () {
-  modelParams.learningRate = this.value * 1;
-
-  console.log('learningRateElemVal:- ', modelParams.learningRate );
-};
 
 useBiasElem.oninput = function () {
 
@@ -76,7 +68,7 @@ const modelParams = {
   useBias: useBiasElem.checked * 1,
   nEpoch: epochElem.value * 1,
   threshold: 0.01,
-  learningRate: lrInputElem.value * 1,
+  learningRate : lrSelectElem.options[lrSelectElem.selectedIndex].value * 1
 };
 
 /* Visualizing */
@@ -97,31 +89,21 @@ const inputVizObj = inputViz(
   (x,y)=>{
     console.log('dragging..')
     const dataPoints = fetchDataPoints();
-    trainX = dataPoints[0];
-    trainY = dataPoints[1];
+    trainData.x = dataPoints[0];
+    trainData.y = dataPoints[1];
 
-    // let dataX = [];
-    // let dataY = [];
-
-    // const dataPts = dataPointsGrp._groups[0][0].childNodes;
-
-    // for (let i = 0; i < dataPts.length; i++) {
-    //   dataX.push(xInvScale(dataPts[i].attributes.cx.value));
-    //   dataY.push(yInvScale(dataPts[i].attributes.cy.value));
-    // }
-    const predY = model.test(trainX)
-
-    // if (currPredY !== null)
     if (showResiduals)
-      updateResiduals(predY)
+      updateResiduals()
 
   }
 )
 const svg = inputVizObj.svg;
 svg.style('color', 'white');
 
+const bgCol = getComputedStyle(document.body).getPropertyValue('--tertiary-bg-color');
+
 // styling the frame
-inputVizObj.frame.style('fill', '#eee');
+inputVizObj.frame.style('fill', bgCol);
 
 // fetching the data points group
 const dataPointsGrp = inputVizObj.dataPointsGrp;
@@ -140,10 +122,11 @@ const yInvScale = inputVizObj.conversionFns.yInv;
 // init the model
 let model = null;
 
-// initializing the data Arrays
-let trainX = null;
-let trainY = null;
+// initializing the data
+let trainData = {x: null, y: null};
 let currPredY = null;
+
+
 
 function fetchDataPoints(){
 
@@ -171,21 +154,34 @@ function fetchDataPoints(){
  */
 function updateViz() {
   const dataPoints = fetchDataPoints();
-  trainX = dataPoints[0];
-  trainY = dataPoints[1];
-  
+  trainData.x = dataPoints[0];
+  trainData.y = dataPoints[1];
+
   console.log('modelParams', modelParams);
 
   model = new LinearRegression(
     modelParams,
-    callback
+    async (...args)=>{
+      // Updating the training data
+      const dataPoints = fetchDataPoints();
+      trainData.x = dataPoints[0];
+      trainData.y = dataPoints[1];
+
+      if(showResiduals)
+        updateResiduals();
+
+        console.log('tData', trainData.x.print(), trainData.y.print(), args[2].print())
+
+      // calling the callbackfn
+      await callback(...args);
+    }
   );
 
   // reinitializing for next episode
   lossArray = [];
   metricArray = [];
 
-  model.fit(trainX, trainY);
+  model.fit(trainData);
 }
 
 let lossArray = [];
@@ -198,15 +194,16 @@ function clearResiduals(){
 
 }
 
-function updateResiduals(yPred){
+function updateResiduals(){
 
+  const yPred = model.test(trainData.x)
   const residualsData = yPred
     .flatten()
     .arraySync()
     .map((y, i) => {
-      const diff = yScale(trainY.flatten().arraySync()[i]) - yScale( y)
+      const diff = yScale(trainData.y.flatten().arraySync()[i]) - yScale( y)
       const isNeg = diff < 0;
-      return { x1: trainX.flatten().arraySync()[i], y1: trainY.flatten().arraySync()[i], 
+      return { x1: trainData.x.flatten().arraySync()[i], y1: trainData.y.flatten().arraySync()[i], 
                 height: Math.abs(diff), isNeg: isNeg };
     });
 
@@ -285,7 +282,7 @@ function callback(epoch, cLoss, cWeights, yPred) {
 
     /* visualizing the loss */
     if(showResiduals)
-      updateResiduals(yPred);
+      updateResiduals();
 
     // adding the current loss to our loss array
     lossArray.push(cLoss);

@@ -46,7 +46,7 @@
               Epoch:
             <div class="number-input" style="padding-top: 0px">
               <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" >-</button>
-              <input class="quantity" id="epoch" min="0" name="quantity" value="1" type="number">
+              <input class="quantity" id="epoch" min="0" name="quantity" value="200" type="number">
               <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus">+</button>
             </div>
 
@@ -66,14 +66,13 @@
              > -->
               <option value="0.00001">0.00001</option>
               <option value="0.0001">0.0001</option>
-              <option value="0.001">0.001</option>
+              <option value="0.001" selected>0.001</option>
               <option value="0.03">0.03</option>
               <option value="0.1">0.1</option>
               <option value="3">3</option>
               <option value="10">10</option>
             </select>
           </div>
-            <input name="displayValue" id="lrInput" placeholder="add/select a value" id="displayValue" style="position:absolute;top:0px;left:0px;width:183px;width:180px\9;#width:180px;height:21px; height:28px\9;#height:18px;border:1px solid #A9A9A9;" onfocus="this.select()" type="text">
             </div>
 
 
@@ -86,14 +85,14 @@
             <div >
               use Bias: 
               <label class="switch">
-                <input type="checkbox"  value="0" id="useBias" ></input>
+                <input type="checkbox" checked="1"   value="1" id="useBias" ></input>
                 <span class="slider round"></span>
               </label>
             </div>
             <div>
               show RSS: 
               <label class="switch">
-                <input type="checkbox"  value="0" id="showResiduals" ></input>
+                <input type="checkbox" checked="1"  value="1" id="showResiduals" ></input>
                 <span class="slider round"></span>
               </label>
             </div>

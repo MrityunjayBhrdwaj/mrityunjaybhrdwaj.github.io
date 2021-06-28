@@ -59,7 +59,7 @@ export default class LinearRegression {
    * @param {tf.tensor} y dataY
    * @return {obect} returns 'this' object itself
    */
-  async fit(x, y) {
+  async fit(data) {
     /*
      * initializing all the parameters
      */
@@ -73,13 +73,9 @@ export default class LinearRegression {
       verbose,
     } = this._model.params;
 
-    /*
-     * concatinating constant ones for bias weights
-     NOTE: if useBias is false then it is assumed that data is centered so don't concat
-     */
-    const dataXWithBias = !useBias
-      ? x
-      : x.concat(tf.ones([x.shape[0], 1]), /* axis */ 1);
+    let dataXWithBias = !useBias
+      ? data.x
+      : data.x.concat(tf.ones([data.x.shape[0], 1]), /* axis */ 1);
 
     /*
      * The gradient Descent Algorithm
@@ -91,12 +87,22 @@ export default class LinearRegression {
     let epoch = 0;
 
     while (true) {
+    /*
+     * concatinating constant ones for bias weights
+     NOTE: if useBias is false then it is assumed that data is centered so don't concat
+     NOTE: putting it inside the training loop since we can update the data while training in our viz.
+     although in-practice its not a good idea ( i.e, its not ment to be used in practice.)
+     */
+     dataXWithBias = !useBias
+      ? data.x
+      : data.x.concat(tf.ones([data.x.shape[0], 1]), /* axis */ 1);
+
       // our prediction using the current weight values
       const yPred = dataXWithBias.matMul(cWeights);
 
       // checking for convergence using MSE Loss
       const cLoss = yPred
-        .sub(y)
+        .sub(data.y)
         .pow(2)
         .sum()
         .mul(1 / 2)
@@ -110,7 +116,7 @@ export default class LinearRegression {
 
       // updating our weights by moving in the direction of steepest descent
       const gradient = yPred
-        .sub(y)
+        .sub(data.y)
         .transpose()
         .matMul(dataXWithBias)
         .transpose();
