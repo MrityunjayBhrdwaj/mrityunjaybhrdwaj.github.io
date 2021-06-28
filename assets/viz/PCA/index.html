@@ -139,6 +139,56 @@
 	justify-content: center;
 }
 
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: white;
+}
+select::-ms-expand {
+  display: none;
+}
+/* Custom Select */
+.select {
+  position: relative;
+  display: flex;
+  width: 12.5em;
+  height: 1.5em;
+  /* line-height: 3; */
+  background: #2c3e50;
+  overflow: hidden;
+  /* border-radius: .25em; */
+}
+select {
+  flex: 1;
+  padding: 0 .5em;
+  color: black;
+  cursor: pointer;
+}
+/* Arrow */
+.select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 .2em;
+  height: 2em;
+  width: 1.2em;
+  background: black;
+  cursor: pointer;
+  pointer-events: none;
+  -webkit-transition: .25s all ease;
+  -o-transition: .25s all ease;
+  transition: .25s all ease;
+}
+/* Transition */
+.select:hover::after {
+  color: #f39c12;
+}
     </style>
 </head>
 <body style=" background-color:rgb(10,10,25); color:white;   overflow: hidden; height: 700px;">
@@ -183,7 +233,22 @@
       <h2 id="eigVal0" style='color:rgb(255, 46, 99)' >0.000</h2>
       <h2 id="eigVal1" style='color:rgb(255, 46, 99)' >0.000</h2>
       <hr>
+      <br>
 
+      <div style="display:flex" >
+        <b>Project on: </b>
+        
+      <div class="select" style="padding-top: 0;margin:0; margin-left: 1em; ">
+        <select id="projSelect">
+          <!-- style="position:absolute;top:0px;left:0px;width:200px; height:25px;line-height:20px;margin:0;padding:0;" 
+          > -->
+          <option value="0" selected>Principle Component 1</option>
+          <option value="1">Principle Component 2</option>
+          <option value="2">None</option>
+        </select>
+      </div>
+      </div>
+      <br>
         <span id="Settings"style="position:absolute;">
       <span >Live-Update: </span>
       <label class="switch" >

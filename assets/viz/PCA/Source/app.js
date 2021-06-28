@@ -1,5 +1,24 @@
 /* display eigen vectors and standardized data */
 
+const projSelectElem = document.querySelector('#projSelect')
+let showProjectedData = 1;
+let projCompIndex = 0;
+
+projSelectElem.onchange = function(){
+  const currSelectedValue = this.options[this.selectedIndex].value * 1;
+    showProjectedData = 1;
+
+  if (currSelectedValue > 1){
+    showProjectedData = 0;
+
+    svgProjData.selectAll('circle').remove();
+
+  }
+  else projCompIndex = currSelectedValue;
+
+  calcPCA();
+}
+
 // range2 of the plot
 const range2 = {min: -5, max: 5};
 
@@ -91,6 +110,7 @@ const pca = new myPCA();
 
 const svgEigVecs = svg2.append('g').attr('id', 'eigVecs');
 const svgNormData = svg2.append('g').attr('id', 'normalizedData')
+const svgProjData = svg2.append('g').attr('id', 'projectedData')
 
 const cov = svg2.append('g')
 .attr('id', 'covariance')
@@ -194,6 +214,34 @@ function calcPCA(duration=500){
     .attr('opacity', 1)
     .attr('fill', darkModeCols.green(1))
     .attr('stroke-width', 2)
+
+
+    if(showProjectedData){
+
+      const noOfComponents = 1;
+      let projectedData = pca.model.covSVD[0].slice([0,projCompIndex],[-1,noOfComponents])
+            .matMul(pca.model.covSVD[1].slice([projCompIndex,projCompIndex],[noOfComponents, noOfComponents]))
+            .matMul(pca.model.covSVD[2].slice([projCompIndex,0],[noOfComponents, -1]));
+
+      projectedData = projectedData.arraySync()
+
+      // visualizing the projection of data onto principal components.
+      const projectedSvgData = svgProjData.selectAll('circle')
+      .data(projectedData)
+
+      projectedSvgData.enter()
+      .append('circle')
+      .merge(projectedSvgData)
+      .transition()
+      .duration(duration)
+      .attr('cx', function(d) { return x2(d[0])})
+      .attr('cy', function(d) { return y2(d[1])})
+      .attr('r', 7)
+      .attr('opacity', 1)
+      .attr('fill', darkModeCols.red(1))
+      .attr('stroke-width', 2)
+    }
+
 
 
     // updating Math component visualizations:-
