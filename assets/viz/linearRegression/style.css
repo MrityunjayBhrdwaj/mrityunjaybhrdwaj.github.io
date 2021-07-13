@@ -4,17 +4,39 @@ body{
   background-color: var(--tertiary-bg-color);
   color: var(--main-fg-color);
   /* background-color: red; */
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 #linearRegressionViz{
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  /* scroll-snap-type: x mandatory; */
+  scroll-snap-type: x mandatory;
+  width: 100%;
+}
+
+.panel{
+  /* width: 100vw; */
+
+  justify-content: center;
+  scroll-snap-align: start;
+  padding-left: 0.1em;
+}
+
+.panel:nth-child(2){
+  display: flex;
+  flex-direction: column;
 }
 
 #left-panel{
   display: flex;
   flex-direction: column;
 }
+
 
 html{
     min-height: 100%;
@@ -34,7 +56,7 @@ summary{
 }
 
 .container{
-    width: 1200px;
+    /* width: 1200px; */
     /* background-color: red; */
     display: block;
     margin: 0 auto;
@@ -42,6 +64,12 @@ summary{
     border-radius: 0 0 10px 10px;
     /* padding: .2em 2em; */
     border-top: none;
+}
+
+
+#inputSpaceViz{
+  /* width: 1000px; */
+  height: calc(var(--page-image-height)*0.85);
 }
 
 #title{
@@ -69,17 +97,29 @@ h2{
 #paramContainer{
     display: flex;
     flex-direction: column;
-    margin-left: 1em;
-    margin-bottom: 1em;
-    margin-top: 1em;
+    margin-bottom: 0.5em;
+    /* width: 99vw; */
 }
 
 #paramContainer div{
-    padding-top: .8em;
+    /* padding-top: .8em; */
     font-size: larger;
-    margin: .2em 0;
+    /* margin: .2em 0; */
+    width: max-content;
 
 }
+
+#group1 div{
+  padding-top: 0.5em;
+}
+#group2 div{
+  padding-top: 0.5em;
+}
+
+#group2 {
+  position: relative;
+}
+
 
 #paramContainer input[type="range"]{
   text-align: center;
@@ -340,6 +380,8 @@ input:checked + .slider:before {
 #lossViz{
   height: 125px;
   width: 250px;
+  margin: 0 auto;
+
 }
 
 hr{
@@ -415,3 +457,34 @@ select {
   color: #f39c12;
 }
  
+
+@media only screen and (max-width: 780px){
+
+  #linearRegressionViz{
+    font-size: 65%;
+    justify-content: left;
+  }
+  #paramContainer{
+    flex-direction: row;
+    justify-content: center;
+
+    width: 99vw;
+  }
+
+  #group2{
+    margin-top: 1em;
+    position: relative;
+    top: 25%;
+    height: max-content;
+  }
+
+  #btnContainer{
+    margin: 0 auto;
+    margin-top: 0.5em;
+    text-align: center;
+  }
+  .panel{
+
+  width: 100vw;
+  }
+}

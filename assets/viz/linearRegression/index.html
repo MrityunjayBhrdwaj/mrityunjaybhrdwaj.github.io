@@ -21,14 +21,15 @@
     <div id="linearRegressionViz" >
 
 
-      <div>
+      <div class="panel">
         <h2 class="vizTitle">
           Data Space
         </h2>
         <div id="inputSpaceViz" class="vizContainer"></div>
       </div>
 
-      <div>
+        <!-- <hr> -->
+      <div class="panel">
         <div>
           <h2 id="loss" class="vizTitle">
             Loss:  
@@ -40,40 +41,45 @@
         <div id="left-panel">
           <div id="paramContainer">
 
+            <div id="group1">
 
-            <div>
-            <hr>
-              Epoch:
-            <div class="number-input" style="padding-top: 0px">
-              <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" >-</button>
-              <input class="quantity" id="epoch" min="0" name="quantity" value="200" type="number">
-              <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus">+</button>
+
+              <div>
+                <p>
+                  Epoch:
+                </p>
+                <div class="number-input" style="padding-top: 0px">
+                  <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" >-</button>
+                  <input class="quantity" id="epoch" min="0" name="quantity" value="200" type="number">
+                  <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus">+</button>
+                </div>
+              </div>
+
+
+              <div>
+                <div>
+                  LearningRate: 
+                </div>
+                <div style="position:relative;width:200px;height:25px;border:0;padding:0;margin:0;">
+
+                  <div class="select" style="padding-top: 0; margin:0;">
+                    <select id="lrSelect">
+                    <!-- style="position:absolute;top:0px;left:0px;width:200px; height:25px;line-height:20px;margin:0;padding:0;" 
+                    > -->
+                      <option value="0.00001">0.00001</option>
+                      <option value="0.0001">0.0001</option>
+                      <option value="0.001" selected>0.001</option>
+                      <option value="0.03">0.03</option>
+                      <option value="0.1">0.1</option>
+                      <option value="3">3</option>
+                      <option value="10">10</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
             </div>
 
-
-              <!-- Epoch: <input type="number" min="0" value="1000" id="epoch" ></input> -->
-            </div>
-
-
-            <div>
-              LearningRate: 
-            </div>
-            <div style="position:relative;width:200px;height:25px;border:0;padding:0;margin:0;">
-
-            <div class="select" style="padding-top: 0; margin:0;">
-            <select id="lrSelect">
-             <!-- style="position:absolute;top:0px;left:0px;width:200px; height:25px;line-height:20px;margin:0;padding:0;" 
-             > -->
-              <option value="0.00001">0.00001</option>
-              <option value="0.0001">0.0001</option>
-              <option value="0.001" selected>0.001</option>
-              <option value="0.03">0.03</option>
-              <option value="0.1">0.1</option>
-              <option value="3">3</option>
-              <option value="10">10</option>
-            </select>
-          </div>
-            </div>
+          <div id="group2">
 
 
             <!-- <div>
@@ -97,12 +103,16 @@
               </label>
             </div>
 
-            <hr>
 
           </div>
+
         </div>
 
-      <div>
+        </div>
+
+        <!-- <hr> -->
+
+      <div id="btnContainer">
         <button class="btn" id="button">Recalculate</button>
       </div>
       </div>

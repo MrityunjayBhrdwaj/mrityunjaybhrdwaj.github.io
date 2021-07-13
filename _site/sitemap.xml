@@ -59,7 +59,7 @@
 </url>
 <url>
 <loc>http://localhost:4000/assets/viz/PCA/</loc>
-<lastmod>2020-05-20T18:57:54+05:30</lastmod>
+<lastmod>2021-06-29T01:33:42+05:30</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/assets/viz/SVM/</loc>
@@ -75,6 +75,6 @@
 </url>
 <url>
 <loc>http://localhost:4000/assets/viz/linearRegression/</loc>
-<lastmod>2020-08-04T10:46:47+05:30</lastmod>
+<lastmod>2021-07-14T01:13:06+05:30</lastmod>
 </url>
 </urlset>

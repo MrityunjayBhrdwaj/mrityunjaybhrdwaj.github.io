@@ -1250,7 +1250,7 @@ div.sticky {
   position: relative;
   padding: 0;
   margin: 0;
-  height: 700px; /* default height */
+  height: var(--page-image-height); /* default height */
   background-color: #fff;
   overflow: hidden;
 }
@@ -1751,7 +1751,7 @@ div.sticky {
     max-width: 95%;
   }
   .page-content {
-    margin-top: -50px;
+    /* margin-top: -50px; */
     padding: 15px;
   }
   .header-page {
@@ -1774,7 +1774,7 @@ div.sticky {
     font-size: 16px;
   }
   .page-image {
-    height: 380px;
+    height: var(--page-image-height)
   }
   .recent-box .recent-list .recent-item {
     position: relative;

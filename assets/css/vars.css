@@ -33,6 +33,15 @@
 
   --main-post-bg-color: #090618;
   --main-post-bg-color: #2F3754;
-  --main-post-bg-color:var(--main-bg-color) /*multi-arm bandit's bg color*/
+  --main-post-bg-color: var(--main-bg-color); /*multi-arm bandit's bg color*/
+
+  --page-image-height: 700px;
 
 }
+@media only screen and (max-width: 480px){
+
+  :root{
+    --page-image-height: 380px;
+  }
+}
+    

@@ -28,6 +28,17 @@ layout: default
     src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
   </script>
 
+  <script>
+  window.onmessage = function(e){
+      if (e.data == 'hello') {
+          alert('It works!');
+      }
+
+      return 23;
+  };
+
+  </script>
+
   <!-- Import all the required dependencies -->
   {% if page.dependency contains "d3" %}
     <script type="text/javascript" src="{{site.baseurl}}/assets/js/dependency/d3.js"></script>

@@ -30,6 +30,7 @@ const useBiasElem = document.getElementById('useBias');
 const epochElem = document.getElementById('epoch');
 const showResidualsElem = document.getElementById('showResiduals');
 let showResiduals = showResidualsElem.checked;
+const inputSpaceVizElem = document.querySelector('#inputSpaceViz');
 
 /* Specifing the behaviour of UI elements */
 
@@ -73,12 +74,26 @@ const modelParams = {
 
 /* Visualizing */
 
+let containerWidth = window.top.innerWidth;
+const lrv = document.querySelector('#linearRegressionViz')
+document.querySelector('#linearRegressionViz').style.width = window.top.innerWidth*1+"px";
+
+if (containerWidth > 800){
+  containerWidth *=0.7
+}
+
+inputSpaceVizElem.style.width = Math.floor(containerWidth)+"px";
+
+console.log(window.top.innerWidth, inputSpaceVizElem.offsetWidth, inputSpaceVizElem.style.width, containerWidth, lrv.style.width)
+
+console.log('inpSpaceVizElem: ', inputSpaceVizElem.offsetWidth, inputSpaceVizElem.offsetHeight)
+
 // input viz
 const inputVizObj = inputViz(
   '#inputSpaceViz',
   {
-    width: 1050,
-    height: 550,
+    width: inputSpaceVizElem.offsetWidth,
+    height: inputSpaceVizElem.offsetHeight*0.9,
     gridIntervel: { x: 16, y: 8 },
     rangeX: { min: -5, max: 5 },
     rangeY: { min: -2, max: 2 },
