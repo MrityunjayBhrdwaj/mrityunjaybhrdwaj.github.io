@@ -80,7 +80,7 @@ layout: default
     <div class="page-image" style='height: {{page.height}}'>
       <embed id="myFrame" style="background-size: cover;padding: 0%;" frameborder=0 class="cover-image" width="90%" align="middle" padding="0" scrolling="no" src='{{"/assets/viz/" | prepend: site.baseurl | append : page.viz}}'></embed>
     </div>
-    <div class="wrapper">
+    <div class="wrapper" style="max-width: 55%">
       <div class="page-content">
         <div class="header-page">
           <h1 class="page-title">{{page.title}}</h1>
@@ -88,7 +88,18 @@ layout: default
 
           <!-- <div class="page-date"><time datetime="{{page.date}}">{{page.date | date: '%Y, %b %d'}}</time></div> -->
         </div>
+        <!-- src='http://127.0.0.1:4000/assets/output/index.html' -->
+        <!-- src='https://jupyterlite.readthedocs.io/en/latest/_static/retro/notebooks/?path=pyolite%20-%20plotly.ipynb' -->
+
+                <!-- '/retro/tree/index.html' -->
         {{page.content | markdownify}}
+        <!-- <iframe width="100%" height="1000px" src="http://127.0.0.1:4000/assets/output/index.html"> -->
+
+        <embed id="myFrame" style="background-size: cover;padding: 0%;margin-left: -5.56em;" frameborder=0 class="cover-image" width="120%" height="1000px" align="middle" padding="0" scrolling="no" 
+        src='{{"/assets/output/retro/notebooks/" | prepend: site.baseurl | append : "?path=content/pyolite.ipynb"}}'
+        ></embed>
+
+        </iframe>
         <div class="page-footer">
           <div class="page-tag">
             <span>Tags:</span>
@@ -103,6 +114,9 @@ layout: default
             <a href="https://plus.google.com/share?url={{ site.url }}{{ page.url }}" title="Share on Google+" rel="nofollow" target="_blank"><i class="fa fa-google" aria-hidden="true"></i></a>
           </div><!-- End Share -->
         </div>
+
+
+
         <!-- Removed disqus, newsletter, recent posts -->
         <div class="post-nav">
         <div>
@@ -120,7 +134,16 @@ layout: default
 
       </div>
     </div> <!-- End Wrapper -->
+
+
   </article>
   {% include search.html %}
   {% include footer.html %}
+    <!--
+      # jupyter-lite-root
+
+      The source of truth for relative path locations. The `.` means _this_
+      is the root, and will redirect to the `appUrl` defined in
+      `.jupyter-lite/#jupyter-config-data`.
+    -->
 </div>

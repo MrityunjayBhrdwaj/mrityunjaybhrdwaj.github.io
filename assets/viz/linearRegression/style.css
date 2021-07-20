@@ -468,7 +468,7 @@ select {
     flex-direction: row;
     justify-content: center;
 
-    width: 99vw;
+    width: 99vw; /* not 100 because we are also using padding-left*/
   }
 
   #group2{
