@@ -1030,6 +1030,9 @@ pre {
 }
 
 #main-panel{
-  top: 0px;
+  top: 0px !important;
   box-shadow: none;
+}
+.jp-Notebook{
+  overflow: hidden;
 }

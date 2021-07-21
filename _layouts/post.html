@@ -86,18 +86,55 @@ layout: default
           <h1 class="page-title">{{page.title}}</h1>
 
 
+        <!-- "name": "@jlab-enhanced/cell-toolbar", -->
           <!-- <div class="page-date"><time datetime="{{page.date}}">{{page.date | date: '%Y, %b %d'}}</time></div> -->
         </div>
         <!-- src='http://127.0.0.1:4000/assets/output/index.html' -->
         <!-- src='https://jupyterlite.readthedocs.io/en/latest/_static/retro/notebooks/?path=pyolite%20-%20plotly.ipynb' -->
 
                 <!-- '/retro/tree/index.html' -->
-        {{page.content | markdownify}}
-        <!-- <iframe width="100%" height="1000px" src="http://127.0.0.1:4000/assets/output/index.html"> -->
+        <!-- <embed id="myFrame" style="background-size: cover;padding: 0%;" frameborder=0 class="cover-image" width="100%" height="1000px" align="middle" padding="0" scrolling="no" 
+        src='{{"/assets/output/retro/notebooks/" | prepend: site.baseurl | append : "?path=content/pyolite.ipynb"}}'
+        ></embed> -->
 
-        <embed id="myFrame" style="background-size: cover;padding: 0%;" frameborder=0 class="cover-image" width="100%" height="1000px" align="middle" padding="0" scrolling="no" 
+
+      <input type="range" min="1" max="3" value="0" onchange="change_content(this.value -1)" style="display: block; margin: 0 auto;">
+
+      <div id="code" style="display: none;">
+
+        <embed id="myFrame" style="background-size: cover;padding: 0%;" frameborder=0 class="cover-image" width="100%" height="4000px" align="middle" padding="0" scrolling="no" 
         src='{{"/assets/output/retro/notebooks/" | prepend: site.baseurl | append : "?path=content/pyolite.ipynb"}}'
         ></embed>
+
+      </div>
+
+      <div id="disc0">
+
+        {{page.content | markdownify}}
+      </div>
+
+      <script>
+      function change_content(v){
+        console.log('hello')
+        const disc0Elem = document.querySelector('#disc0')
+        const disc1Elem = document.querySelector('#disc0') //TODO: create disc1 and change this arg.
+        const codeElem = document.querySelector('#code')
+
+        const allElems = [disc0Elem, disc1Elem, codeElem]
+
+        function closeOthersAcceptGivenElem(activeElem){
+          for(let elem of allElems){
+            elem.style.display = 'none';
+        }
+          activeElem.style.display = 'inherit';
+        }
+        if (v === 0)closeOthersAcceptGivenElem(disc0Elem)
+        if (v === 1)closeOthersAcceptGivenElem(disc1Elem)
+        if (v === 2)closeOthersAcceptGivenElem(codeElem)
+      }
+      </script>
+        <!-- <iframe width="100%" height="1000px" src="http://127.0.0.1:4000/assets/output/index.html"> -->
+
 
         </iframe>
         <div class="page-footer">

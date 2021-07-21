@@ -4,5 +4,13 @@
     "fullStaticUrl": "./build",
     "settingsUrl": "./build/schemas",
     "themesUrl": "./retro/build/themes"
-  }
+  },
+  "federated_extensions": [
+    {
+      "extension": "./extension",
+      "load": "static/remoteEntry.e10847405ee504a8bcfd.js",
+      "name": "jupyterlab-cell-toolbar",
+      "style": "./style"
+    }
+  ]
 }

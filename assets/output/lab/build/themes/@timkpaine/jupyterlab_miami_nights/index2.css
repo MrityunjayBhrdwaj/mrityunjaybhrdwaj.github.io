@@ -44,7 +44,6 @@ all of MD as it is not optimized for dense, information rich UIs.
    --neon-night-orange: #ff9246;
    --neon-night-fg0: #F8F8F2;
    --neon-night-bg0: #211d35;
-   --neon-night-bg0: #191928; 
    --neon-night-bg1: #2f2a46;
    --neon-night-bg2: #3a2e6b;
 
@@ -113,12 +112,12 @@ all of MD as it is not optimized for dense, information rich UIs.
    * The following variables, specify the visual styling of borders in JupyterLab.
    */
 
-  --jp-border-width: .1em;
+  --jp-border-width: 0px;
   --jp-border-color0: #7b5ccc50;
   --jp-border-color1: #7b5ccc50;
   --jp-border-color2: #7b5ccc50;
   --jp-border-color3: #7b5ccc50;
-  --jp-border-radius: .5em;
+  --jp-border-radius: 2px;
 
   /* UI Fonts
    *
@@ -279,7 +278,7 @@ all of MD as it is not optimized for dense, information rich UIs.
 
   /* Cell specific styles */
 
-  --jp-cell-padding: 0px; /* custom */
+  --jp-cell-padding: 12px;
 
   --jp-cell-collapser-width: 8px;
   --jp-cell-collapser-min-height: 20px;
@@ -306,7 +305,7 @@ all of MD as it is not optimized for dense, information rich UIs.
 
   /* Notebook specific styles */
 
-  --jp-notebook-padding: 0px; /*custom */
+  --jp-notebook-padding: 12px;
   --jp-notebook-select-background: #3c2f51;
   --jp-notebook-multiselected-color: #3c2f51;
 
@@ -565,9 +564,6 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 
 .jp-Cell .jp-InputArea-editor {
   padding: 2px 0;
-  margin: 2px 0;
-  border-radius: var(--jp-border-radius);
-  border-color: rgb(191, 191, 191);
 }
 
 .jp-OutputArea-child .jp-RenderedImage.jp-OutputArea-output{
@@ -948,7 +944,7 @@ body[data-jp-theme-name="JupyterLab Miami Nights"] span.cm-variable,
 body[data-jp-theme-name="JupyterLab Miami Nights"] span.cm-variable-2,
 body[data-jp-theme-name="JupyterLab Miami Nights"] span.cm-variable-3,
 body[data-jp-theme-name="JupyterLab Miami Nights"] button[title="Switch kernel"] {
-    /* text-shadow: 0 0 2px #000, 0 0 10px; */ /* removing the glow */
+    text-shadow: 0 0 2px #000, 0 0 10px;
 }
 
 /* side bar gradient */
@@ -1014,60 +1010,3 @@ pre {
 | Copyright (c) Jupyter Development Team.
 | Distributed under the terms of the Modified BSD License.
 |----------------------------------------------------------------------------*/
-
-#top-panel-wrapper {
-  display: none;
-}
-#menu-panel-wrapper {
-  display: none;
-}
-#spacer-widget {
-  display: none;
-}
-
-.jp-Toolbar.jp-NotebookPanel-toolbar{
-  display: none;
-}
-
-#main-panel{
-  top: 0px;
-  box-shadow: none;
-}
-.jp-SideBar.lm-TabBar.jp-mod-left {
-  display: none;
-  background-color: red;
-}
-
-.lm-Widget p-Widget lm-TabBar p-TabBar lm-DockPanel-tabBar jp-Activity {
-  display: none;
-}
-
-#jp-left-stack {
-  /* display: none; */
-}
-
-#jp-top-panel{
-  display: none;
-}
-
-.jp-SideBar.lm-TabBar.jp-mod-right {
-  /* display: none; */
-}
-
-.lm-DockPanel-tabBar[data-orientation="horizontal"] {
-  /* display: none; */
-}
-#jp-main-dock-panel {
-  /* left: 0px !important; */
-
-}
-
-#jp-main-content-panel {
-  top: 0px !important;
-
-}
-
-.p-Widget, .lm-Widget {
-  /* left: 0px !important;
-  top: 0px !important; */
-}
