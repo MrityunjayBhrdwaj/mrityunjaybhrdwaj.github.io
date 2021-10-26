@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-07-21T17:31:16+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">Learn Machine Learning The fun way</title><subtitle>A platform for &lt;b&gt;Playing&lt;/b&gt;, &lt;b&gt;Exploring&lt;/b&gt; and &lt;b&gt;Understanding&lt;/b&gt; &lt;br&gt; several Machine Learning Algorithms.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-10-27T01:12:24+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">Learn Machine Learning The fun way</title><subtitle>A platform for &lt;b&gt;Playing&lt;/b&gt;, &lt;b&gt;Exploring&lt;/b&gt; and &lt;b&gt;Understanding&lt;/b&gt; &lt;br&gt; several Machine Learning Algorithms.
 </subtitle><author><name>Machine Learning Playgrounds</name></author><entry><title type="html">Linear Regression</title><link href="http://localhost:4000/machine/learning/linearRegression.html" rel="alternate" type="text/html" title="Linear Regression" /><published>2020-07-28T00:00:00+05:30</published><updated>2020-07-28T00:00:00+05:30</updated><id>http://localhost:4000/machine/learning/linearRegression</id><content type="html" xml:base="http://localhost:4000/machine/learning/linearRegression.html">&lt;h2 id=&quot;um-what-am-i-looking-at&quot;&gt;Um, what am i looking at?&lt;/h2&gt;
 
 &lt;p&gt;This is a simple linear regression which tries to fit the best possible line from the given data points.&lt;/p&gt;
 
-&lt;p&gt;Just tap on the grid(Data Space) to add a new data points ( you can also drag the data points by click and drag),  play with the controls on the right and hit recalculate!&lt;/p&gt;
+&lt;p&gt;Just tap on the grid(Data Space) to add a new data points ( you can also drag the data points by click and drag), play with the controls on the right and hit recalculate!&lt;/p&gt;
 
 &lt;h2 id=&quot;hyperparameters&quot;&gt;Hyperparameters:&lt;/h2&gt;
 
@@ -22,23 +22,26 @@
 &lt;!-- If you are someone who learns by doing, then please checkout our tutorial on how to implement Linear Regression from scratch! --&gt;
 
 &lt;h2 id=&quot;further-reading&quot;&gt;Further reading:&lt;/h2&gt;
+
 &lt;p&gt;&lt;a href=&quot;https://en.m.wikipedia.org/wiki/Linear_regression#:~:text=In%20statistics%2C%20linear%20regression%20is,as%20dependent%20and%20independent%20variables.&amp;amp;text=Such%20models%20are%20called%20linear%20models.&quot;&gt;Wiki: Linear Regression&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://youtu.be/nk2CQITm_eo&quot;&gt;StatQuest: Linear Regression&lt;/a&gt;&lt;/p&gt;</content><author><name>Mrityunjay</name></author><category term="ML" /><category term="AI" /><category term="supervised" /><category term="linear" /><category term="linear Regression" /><summary type="html">Um, what am i looking at?</summary></entry><entry><title type="html">Gaussian Processes</title><link href="http://localhost:4000/machine/learning/gaussianProcesses.html" rel="alternate" type="text/html" title="Gaussian Processes" /><published>2020-06-24T00:00:00+05:30</published><updated>2020-06-24T00:00:00+05:30</updated><id>http://localhost:4000/machine/learning/gaussianProcesses</id><content type="html" xml:base="http://localhost:4000/machine/learning/gaussianProcesses.html">&lt;h2 id=&quot;um-what-am-i-looking-at&quot;&gt;Um, what am i looking at?&lt;/h2&gt;
 
 &lt;p&gt;This is a simple Gaussian Process regression visualization, which tries to fit the best possible curve from the given data points.&lt;/p&gt;
 
-&lt;p&gt;Just tap on the grid(Data Space) to add a new data points ( you can also drag the data points by click and drag),  play with the controls on the right and hit Recalculate!&lt;/p&gt;
+&lt;p&gt;Just tap on the grid(Data Space) to add a new data points ( you can also drag the data points by click and drag), play with the controls on the right and hit Recalculate!&lt;/p&gt;
 
 &lt;h2 id=&quot;but-what-is-a-gaussian-process&quot;&gt;But, What is a Gaussian Process?&lt;/h2&gt;
 
 &lt;h3 id=&quot;from-wiki&quot;&gt;From Wiki:&lt;/h3&gt;
+
 &lt;p&gt;In probability theory and statistics, a Gaussian process is a stochastic process (a collection of random variables indexed by time or space), such that every finite collection of those random variables has a multivariate normal distribution, i.e. every finite linear combination of them is normally distributed. The distribution of a Gaussian process is the joint distribution of all those (infinitely many) random variables, and as such, it is a distribution over functions with a continuous domain, e.g. time or space.&lt;/p&gt;
 
 &lt;h2 id=&quot;further-reading&quot;&gt;Further reading:&lt;/h2&gt;
+
 &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Gaussian_process&quot;&gt;Wiki: Gaussian Process&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=92-98SYOdlY&quot;&gt;MLSS 2017:  Gaussian Processes (Richard Turner)&lt;/a&gt;&lt;/p&gt;</content><author><name>Mrityunjay</name></author><category term="ML" /><category term="AI" /><category term="supervised" /><category term="Kernels" /><category term="linear Regression" /><category term="Gaussian" /><category term="Gaussian Processes" /><category term="non-linear" /><category term="RKHS" /><summary type="html">Um, what am i looking at?</summary></entry><entry><title type="html">AutoEncoder</title><link href="http://localhost:4000/machine/learning/autoEncoder.html" rel="alternate" type="text/html" title="AutoEncoder" /><published>2020-05-20T00:00:00+05:30</published><updated>2020-05-20T00:00:00+05:30</updated><id>http://localhost:4000/machine/learning/autoEncoder</id><content type="html" xml:base="http://localhost:4000/machine/learning/autoEncoder.html">&lt;h2 id=&quot;um-what-am-i-looking-at&quot;&gt;Um, what am i looking at?&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=92-98SYOdlY&quot;&gt;MLSS 2017: Gaussian Processes (Richard Turner)&lt;/a&gt;&lt;/p&gt;</content><author><name>Mrityunjay</name></author><category term="ML" /><category term="AI" /><category term="supervised" /><category term="Kernels" /><category term="linear Regression" /><category term="Gaussian" /><category term="Gaussian Processes" /><category term="non-linear" /><category term="RKHS" /><summary type="html">Um, what am i looking at?</summary></entry><entry><title type="html">AutoEncoder</title><link href="http://localhost:4000/machine/learning/autoEncoder.html" rel="alternate" type="text/html" title="AutoEncoder" /><published>2020-05-20T00:00:00+05:30</published><updated>2020-05-20T00:00:00+05:30</updated><id>http://localhost:4000/machine/learning/autoEncoder</id><content type="html" xml:base="http://localhost:4000/machine/learning/autoEncoder.html">&lt;h2 id=&quot;um-what-am-i-looking-at&quot;&gt;Um, what am i looking at?&lt;/h2&gt;
 
 &lt;p&gt;This is a visualization of An Autoencoder, which tries to encode the inputs into a lower dimensional representation without sacrificing the reconstruction accuracy after decoding.&lt;/p&gt;
 

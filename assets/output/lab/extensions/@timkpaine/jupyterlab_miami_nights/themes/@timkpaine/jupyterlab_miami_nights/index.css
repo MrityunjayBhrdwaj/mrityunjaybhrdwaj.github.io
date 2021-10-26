@@ -26,31 +26,34 @@ all of MD as it is not optimized for dense, information rich UIs.
 
 :root {
   /* Basic color scheme*/
-   --neon-night-red: #ff0079;
-   --neon-night-blue0: #51cdff;
-   --neon-night-blue1: #00acff;
-   --neon-night-yellow: #ffde63;
-   --neon-night-green0: #00ff98;
-   --neon-night-green1: #c4f68c;
-   --neon-night-cyan: #3cfffc;
-   --neon-night-peach: #ff63a6;
-   --neon-night-pink: #ff8c8c;
-   --neon-night-purple0: #ff37f2;
-   --neon-night-purple1: #a2adff;
-   --neon-night-purple2: #ff72cf;
-   --neon-night-purple3: #DF81FC;
-   --neon-night-purple4: #696092;
-   --neon-night-purple5: #c375ff;
-   --neon-night-orange: #ff9246;
-   --neon-night-fg0: #F8F8F2;
-   --neon-night-bg0: #211d35;
-   --neon-night-bg1: #2f2a46;
-   --neon-night-bg2: #3a2e6b;
+  --neon-night-red: #ff0079;
+  --neon-night-blue0: #51cdff;
+  --neon-night-blue1: #00acff;
+  --neon-night-yellow: #ffde63;
+  --neon-night-green0: #00ff98;
+  --neon-night-green1: #c4f68c;
+  --neon-night-cyan: #3cfffc;
+  --neon-night-peach: #ff63a6;
+  --neon-night-pink: #ff8c8c;
+  --neon-night-purple0: #ff37f2;
+  --neon-night-purple1: #a2adff;
+  --neon-night-purple2: #ff72cf;
+  --neon-night-purple3: #df81fc;
+  --neon-night-purple4: #696092;
+  --neon-night-purple5: #c375ff;
+  --neon-night-orange: #ff9246;
+  --neon-night-fg0: #f8f8f2;
+  --neon-night-bg0: #211d35;
+  --neon-night-bg0: #191928;
+  --neon-night-bg1: #2f2a46;
+  --neon-night-bg2: #3a2e6b;
 
-   --neon-night-text-shadow0: 0 0 2px #0225ff, 0 0 6px #0225ff, 0 0 6px #0225ff, 2px 2px 1px #000;
-   --neon-night-text-shadow1: 0 0 2px #c10165, 0 0 6px #c10165, 0 0 6px #c10165, 2px 2px 1px #000;
+  --neon-night-text-shadow0: 0 0 2px #0225ff, 0 0 6px #0225ff, 0 0 6px #0225ff,
+    2px 2px 1px #000;
+  --neon-night-text-shadow1: 0 0 2px #c10165, 0 0 6px #c10165, 0 0 6px #c10165,
+    2px 2px 1px #000;
 
-   --jp-private-horizontal-tab-height: 28px;
+  --jp-private-horizontal-tab-height: 28px;
 
   /* Elevation
    *#26243d
@@ -112,12 +115,12 @@ all of MD as it is not optimized for dense, information rich UIs.
    * The following variables, specify the visual styling of borders in JupyterLab.
    */
 
-  --jp-border-width: 0px;
+  --jp-border-width: 0.1em;
   --jp-border-color0: #7b5ccc50;
   --jp-border-color1: #7b5ccc50;
   --jp-border-color2: #7b5ccc50;
   --jp-border-color3: #7b5ccc50;
-  --jp-border-radius: 2px;
+  --jp-border-radius: 0.5em;
 
   /* UI Fonts
    *
@@ -206,7 +209,7 @@ all of MD as it is not optimized for dense, information rich UIs.
   --jp-code-font-size: 13px;
   --jp-code-line-height: 1.3077; /* 19px for 14px base */
   --jp-code-padding: 5px; /* 6px for 14px base */
-  --jp-code-font-family-default: "Source Code Pro", monospace;
+  --jp-code-font-family-default: 'Source Code Pro', monospace;
   --jp-code-font-family: var(--jp-code-font-family-default);
 
   /* This gives a magnification of about 125% in presentation mode over normal. */
@@ -278,7 +281,7 @@ all of MD as it is not optimized for dense, information rich UIs.
 
   /* Cell specific styles */
 
-  --jp-cell-padding: 12px;
+  --jp-cell-padding: 0px; /* custom */
 
   --jp-cell-collapser-width: 8px;
   --jp-cell-collapser-min-height: 20px;
@@ -301,11 +304,11 @@ all of MD as it is not optimized for dense, information rich UIs.
   --jp-cell-inprompt-font-color: var(--neon-night-cyan);
   /* A custom blend of MD grey and orange 600
    * https://meyerweb.com/eric/tools/color-blend/#546E7A:F4511E:5:hex */
-  --jp-cell-outprompt-font-color:  #ffc8e0;
+  --jp-cell-outprompt-font-color: #ffc8e0;
 
   /* Notebook specific styles */
 
-  --jp-notebook-padding: 12px;
+  --jp-notebook-padding: 0px; /*custom */
   --jp-notebook-select-background: #3c2f51;
   --jp-notebook-multiselected-color: #3c2f51;
 
@@ -345,13 +348,15 @@ all of MD as it is not optimized for dense, information rich UIs.
 
   /* Input field styles */
 
-  --jp-input-box-shadow: inset 0px -1px 0 0px var(--jp-mirror-editor-comment-color), inset 0px 1px 0 0px var(--jp-mirror-editor-comment-color);
+  --jp-input-box-shadow: inset 0px -1px 0 0px var(--jp-mirror-editor-comment-color),
+    inset 0px 1px 0 0px var(--jp-mirror-editor-comment-color);
   --jp-input-active-background: var(--neon-night-bg1);
   --jp-input-hover-background: var(--neon-night-bg1);
   --jp-input-background: var(--neon-night-bg1);
   --jp-input-border-color: var(--jp-border-color1);
   --jp-input-active-border-color: var(--jp-brand-color1);
-  --jp-input-active-box-shadow-color: inset 0px -1px 0 0px var(--jp-mirror-editor-comment-color), inset 0px 1px 0 0px var(--jp-mirror-editor-comment-color);
+  --jp-input-active-box-shadow-color: inset 0px -1px 0 0px var(--jp-mirror-editor-comment-color),
+    inset 0px 1px 0 0px var(--jp-mirror-editor-comment-color);
 
   /* General editor styles */
 
@@ -373,7 +378,7 @@ all of MD as it is not optimized for dense, information rich UIs.
   --jp-mirror-editor-operator-color: var(--neon-night-purple0);
   --jp-mirror-editor-comment-color: var(--neon-night-purple4);
   --jp-mirror-editor-string-color: var(--neon-night-purple5);
-  --jp-mirror-editor-string-2-color:var(--neon-night-green1);
+  --jp-mirror-editor-string-2-color: var(--neon-night-green1);
   --jp-mirror-editor-meta-color: var(--neon-night-purple0);
   --jp-mirror-editor-qualifier-color: var(--neon-night-pink);
   --jp-mirror-editor-builtin-color: var(--neon-night-yellow);
@@ -409,7 +414,7 @@ all of MD as it is not optimized for dense, information rich UIs.
   /* colors based on JetBrain's Darcula theme */
 
   --jp-scrollbar-background-color: #00000000;
-  --jp-scrollbar-thumb-color: 92, 81,117; /* need to specify thumb color as an RGB triplet */
+  --jp-scrollbar-thumb-color: 92, 81, 117; /* need to specify thumb color as an RGB triplet */
 
   --jp-scrollbar-endpad: 0px; /* the minimum gap between the thumb and the ends of a scrollbar */
 
@@ -418,43 +423,46 @@ all of MD as it is not optimized for dense, information rich UIs.
   --jp-scrollbar-thumb-margin: 0px; /* the space in between the sides of the thumb and the track */
   --jp-scrollbar-thumb-radius: 10px; /* set to a large-ish value for rounded endcaps on the thumb */
 
-    /* Icon colors that work well with light or dark backgrounds */
-    --jp-icon-contrast-color0: var(--neon-night-yellow);
-    --jp-icon-contrast-color1: var(--neon-night-green0);
-    --jp-icon-contrast-color2: var(--neon-night-purple1);
-    --jp-icon-contrast-color3: var(--neon-night-orange);
+  /* Icon colors that work well with light or dark backgrounds */
+  --jp-icon-contrast-color0: var(--neon-night-yellow);
+  --jp-icon-contrast-color1: var(--neon-night-green0);
+  --jp-icon-contrast-color2: var(--neon-night-purple1);
+  --jp-icon-contrast-color3: var(--neon-night-orange);
 
-    /* Widgets */
-    --jp-widgets-slider-handle-background-color: var(--neon-night-yellow);
-    --jp-widgets-slider-active-handle-color: var(--neon-night-orange);
+  /* Widgets */
+  --jp-widgets-slider-handle-background-color: var(--neon-night-yellow);
+  --jp-widgets-slider-active-handle-color: var(--neon-night-orange);
 }
+
+
 /*-----------------------------------------------------------------------------
 | Copyright (c) Jupyter Development Team.
 | Distributed under the terms of the Modified BSD License.
 |----------------------------------------------------------------------------*/
 
 @font-face {
-    font-family: 'Source Code Pro';
-    src: url(3b5adc929c114d1cd0fc91cd735847b6.ttf) format('truetype');
-    font-weight: 400;
-    font-style: normal;
+  font-family: 'Source Code Pro';
+  src: url(3b5adc929c114d1cd0fc91cd735847b6.ttf) format('truetype');
+  font-weight: 400;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Source Code Pro';
-    src: url(ff01975bdccf4187dc2b094650d0cf5e.ttf) format('truetype');
-    font-weight: 700;
-    font-style: normal;
+  font-family: 'Source Code Pro';
+  src: url(ff01975bdccf4187dc2b094650d0cf5e.ttf) format('truetype');
+  font-weight: 700;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Vibur';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Vibur'), url(662254c8318cbac0ef3bcda7ad0df6ee.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
-
+  font-family: 'Vibur';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Vibur'), url(662254c8318cbac0ef3bcda7ad0df6ee.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
 
 /* Fix layout color */
 body {
@@ -463,47 +471,54 @@ body {
 
 #jupyterlab-splash.dark {
   background-color: var(--neon-night-bg0);
- }
- 
+}
+
 .cm-s-jupyter .CodeMirror-activeline-background,
-.cm-s-jupyter .CodeMirror-gutter, .lm-DockPanel-tabBar .lm-TabBar-tab,
-.lm-DockPanel-tabBar .lm-TabBar-tab.lm-mod-current, 
+.cm-s-jupyter .CodeMirror-gutter,
+.lm-DockPanel-tabBar .lm-TabBar-tab,
+.lm-DockPanel-tabBar .lm-TabBar-tab.lm-mod-current,
 .lm-DockPanel-tabBar .lm-TabBar-tab:hover:not(.lm-mod-current) {
-   background-color: var(--jp-layout-color0);
- }
+  background-color: var(--jp-layout-color0);
+}
 
- body, .lm-DockPanel-tabBar, #jp-main-dock-panel, .lm-Menu, .jp-Tooltip{
-   background-color: var(--jp-layout-color1);
- }
+body,
+.lm-DockPanel-tabBar,
+#jp-main-dock-panel,
+.lm-Menu,
+.jp-Tooltip {
+  background-color: var(--jp-layout-color1);
+}
 
- .lm-MenuBar-item.lm-mod-active, 
- .lm-MenuBar.lm-mod-active .lm-MenuBar-item.lm-mod-active {
+.lm-MenuBar-item.lm-mod-active,
+.lm-MenuBar.lm-mod-active .lm-MenuBar-item.lm-mod-active {
   background-color: #5d5b7b54;
- }
+}
 
- #jp-main-dock-panel {
+#jp-main-dock-panel {
   background: transparent;
   padding: 4px;
- }
-  
- .lm-Menu, .jp-Tooltip {
+}
+
+.lm-Menu,
+.jp-Tooltip {
   border: 1px solid #2f2d43;
 }
 
 .f17wptjy {
   background-color: #181818;
- }
+}
 
- /* Translucent area */
-.jp-SideBar.lm-TabBar, #jp-top-panel {
-   backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
- }
+/* Translucent area */
+.jp-SideBar.lm-TabBar,
+#jp-top-panel {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
 
- .jp-SideBar .lm-TabBar-tab, .lm-MenuBar {
-   background: unset !important;
- }
-
+.jp-SideBar .lm-TabBar-tab,
+.lm-MenuBar {
+  background: unset !important;
+}
 
 /* Brackets */
 div.CodeMirror span.CodeMirror-matchingbracket {
@@ -530,16 +545,18 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background:#5d5175;
+  background: #5d5175;
   border-radius: 10px;
   min-height: 100px;
 }
 
-::-webkit-scrollbar-thumb:horizontal:hover, ::-webkit-scrollbar-thumb:horizontal:active {
+::-webkit-scrollbar-thumb:horizontal:hover,
+::-webkit-scrollbar-thumb:horizontal:active {
   background: linear-gradient(to right, #fafc32, #f45959, #ef1eaf);
 }
 
-::-webkit-scrollbar-thumb:vertical:hover, ::-webkit-scrollbar-thumb:vertical:active {
+::-webkit-scrollbar-thumb:vertical:hover,
+::-webkit-scrollbar-thumb:vertical:active {
   background: linear-gradient(to bottom, #fafc32, #f45959, #ef1eaf);
 }
 
@@ -564,9 +581,12 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 
 .jp-Cell .jp-InputArea-editor {
   padding: 2px 0;
+  margin: 2px 0;
+  border-radius: var(--jp-border-radius);
+  border-color: rgb(191, 191, 191);
 }
 
-.jp-OutputArea-child .jp-RenderedImage.jp-OutputArea-output{
+.jp-OutputArea-child .jp-RenderedImage.jp-OutputArea-output {
   text-align: center;
 }
 
@@ -577,11 +597,12 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   border-radius: 5px;
 }
 
-.jp-Cell, .jp-CodeConsole .jp-Cell {
+.jp-Cell,
+.jp-CodeConsole .jp-Cell {
   padding: 2px 0;
 }
 
-.jp-Cell.jp-MarkdownCell{
+.jp-Cell.jp-MarkdownCell {
   margin-top: 8px;
 }
 
@@ -593,21 +614,21 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 .jp-InputPrompt {
   color: var(--neon-night-cyan);
   text-shadow: var(--neon-night-text-shadow0);
-  padding-top: 8px;  /* Works well with 13px code size */
+  padding-top: 8px; /* Works well with 13px code size */
 }
 
 .jp-OutputPrompt {
   color: #ffc8e0;
   text-shadow: var(--neon-night-text-shadow1);
-  padding-top: 6px;  /* Works well with 13px code size */
+  padding-top: 6px; /* Works well with 13px code size */
 }
 
-.jp-Notebook .jp-Cell:not(.jp-mod-active) .jp-InputPrompt, 
+.jp-Notebook .jp-Cell:not(.jp-mod-active) .jp-InputPrompt,
 .jp-Notebook .jp-Cell:not(.jp-mod-active) .jp-OutputPrompt {
   text-shadow: none;
 }
 
-.jp-NotebookTools .jp-InputPrompt{
+.jp-NotebookTools .jp-InputPrompt {
   padding-top: 8px;
 }
 
@@ -621,33 +642,36 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 }
 
 /* Neon off*/
-.jp-Cell.jp-mod-active .jp-InputCollapser.jp-Cell-inputCollapser, 
-.jp-InputCollapser.jp-Cell-inputCollapser.jp-Collapser, 
-.jp-InputCollapser.jp-Cell-inputCollapser.jp-Collapser:hover{
+.jp-Cell.jp-mod-active .jp-InputCollapser.jp-Cell-inputCollapser,
+.jp-InputCollapser.jp-Cell-inputCollapser.jp-Collapser,
+.jp-InputCollapser.jp-Cell-inputCollapser.jp-Collapser:hover {
   background: var(--neon-night-blue1);
 }
 
 .jp-Cell.jp-mod-active .jp-OutputCollapser.jp-Cell-outputCollapser,
-.jp-OutputCollapser.jp-Cell-outputCollapser.jp-Collapser, 
-.jp-OutputCollapser.jp-Cell-outputCollapser.jp-Collapser:hover{
+.jp-OutputCollapser.jp-Cell-outputCollapser.jp-Collapser,
+.jp-OutputCollapser.jp-Cell-outputCollapser.jp-Collapser:hover {
   background: var(--neon-night-purple2);
 }
 
 .jp-Cell.jp-mod-active .jp-InputCollapser.jp-Cell-inputCollapser,
 .jp-Cell.jp-mod-active .jp-OutputCollapser.jp-Cell-outputCollapser {
-  transition: box-shadow cubic-bezier(0, 0.2, 0, 0.2) 0.5s, background cubic-bezier(0, 0.2, 0, 0.2) 0.5s;
+  transition: box-shadow cubic-bezier(0, 0.2, 0, 0.2) 0.5s,
+    background cubic-bezier(0, 0.2, 0, 0.2) 0.5s;
   opacity: 1;
 }
 
 /* Neon on*/
 .jp-Cell.jp-mod-active .jp-InputCollapser.jp-Cell-inputCollapser:hover {
   background: var(--neon-night-cyan);
-  box-shadow: 0 0 1px, 0 0 15px #0225ff, 0 0 5px 0.1px #0225ff, inset 0 0 1px 0.2px #0225ff;
+  box-shadow: 0 0 1px, 0 0 15px #0225ff, 0 0 5px 0.1px #0225ff,
+    inset 0 0 1px 0.2px #0225ff;
 }
 
 .jp-Cell.jp-mod-active .jp-OutputCollapser.jp-Cell-outputCollapser:hover {
   background: #ffc8e0;
-  box-shadow: 0 0 1px, 0 0 15px #c10165, 0 0 5px 0.1px #c10165, inset 0 0 1px 0.2px #c10165;
+  box-shadow: 0 0 1px, 0 0 15px #c10165, 0 0 5px 0.1px #c10165,
+    inset 0 0 1px 0.2px #c10165;
 }
 
 span.cm-keyword {
@@ -683,16 +707,15 @@ span.cm-keyword:hover {
   fill: var(--jp-inverse-layout-color4);
 }
 
-.jp-SideBar .lm-TabBar-tab.lm-mod-current .jp-icon3[fill]{
+.jp-SideBar .lm-TabBar-tab.lm-mod-current .jp-icon3[fill] {
   fill: var(--jp-inverse-layout-color2);
 }
 
-
-.jp-SideBar .lm-TabBar-tab:hover:not(.lm-mod-current) .jp-icon3[fill]{
+.jp-SideBar .lm-TabBar-tab:hover:not(.lm-mod-current) .jp-icon3[fill] {
   fill: var(--jp-inverse-layout-color2);
 }
 
-.lm-CommandPalette-itemLabel > mark{
+.lm-CommandPalette-itemLabel > mark {
   color: var(--neon-night-cyan);
 }
 
@@ -705,7 +728,7 @@ span.cm-keyword:hover {
   padding: 0 16px;
 }
 
-.jp-Notebook  .CodeMirror-linenumber{
+.jp-Notebook .CodeMirror-linenumber {
   padding: 0 16px 0 8px;
 }
 
@@ -716,22 +739,26 @@ span.cm-keyword:hover {
 
 .lm-DockPanel-tabBar .lm-TabBar-tab {
   margin-left: 2px;
-  transition: text-shadow cubic-bezier(0, 0.2, 0, 0.2) 0.2s, color cubic-bezier(0, 0.2, 0, 0.2) 0.2s, 
-  opacity 0.2s;
+  transition: text-shadow cubic-bezier(0, 0.2, 0, 0.2) 0.2s,
+    color cubic-bezier(0, 0.2, 0, 0.2) 0.2s, opacity 0.2s;
 }
 
 .lm-DockPanel-tabBar .lm-TabBar-tab.jp-mod-current:before {
   top: auto;
   bottom: calc(-1 * var(--jp-border-width));
   height: 1.5px;
-} 
+}
 
 .lm-DockPanel-tabBar .lm-TabBar-tab.lm-mod-closable > .lm-TabBar-tabCloseIcon {
   opacity: 0;
 }
 
-.lm-DockPanel-tabBar .lm-TabBar-tab.lm-mod-closable:hover:not(.lm-mod-current) > .lm-TabBar-tabCloseIcon,
-.lm-DockPanel-tabBar .lm-TabBar-tab.lm-mod-closable.lm-mod-current  > .lm-TabBar-tabCloseIcon {
+.lm-DockPanel-tabBar
+  .lm-TabBar-tab.lm-mod-closable:hover:not(.lm-mod-current)
+  > .lm-TabBar-tabCloseIcon,
+.lm-DockPanel-tabBar
+  .lm-TabBar-tab.lm-mod-closable.lm-mod-current
+  > .lm-TabBar-tabCloseIcon {
   opacity: 1;
 }
 
@@ -744,11 +771,11 @@ span.cm-keyword:hover {
   padding: 2px 0;
 }
 
-
-.lm-DockPanel-tabBar .lm-TabBar-tab:hover:not(.lm-mod-current), 
+.lm-DockPanel-tabBar .lm-TabBar-tab:hover:not(.lm-mod-current),
 .lm-DockPanel-tabBar .lm-TabBar-tab.lm-mod-current {
   color: #ffeef6;
-  text-shadow: 0 0 2px #b33576, 0 0 6px #6b2e4e, 0 0 6px #6b2e4e, 2px 2px 1px #000;
+  text-shadow: 0 0 2px #b33576, 0 0 6px #6b2e4e, 0 0 6px #6b2e4e,
+    2px 2px 1px #000;
   opacity: 1;
 }
 
@@ -761,7 +788,8 @@ span.cm-keyword:hover {
   margin: 16px 16px 0 0;
 }
 
-.jp-DocumentSearch-overlay, .jp-DocumentSearch-overlay-row:first-of-type, 
+.jp-DocumentSearch-overlay,
+.jp-DocumentSearch-overlay-row:first-of-type,
 .bp3-input-group.filter {
   border: 1.5px solid #eb244f;
   box-shadow: 0 0 5px 0 #951430, 0 0 10px 0px #951430, inset 0 0 5px 1px #951430;
@@ -775,7 +803,8 @@ span.cm-keyword:hover {
   padding: 2px;
 }
 
-.jp-DocumentSearch-input, .filter .bp3-input{
+.jp-DocumentSearch-input,
+.filter .bp3-input {
   color: var(--neon-night-green0);
   text-shadow: 0 0 5px #23854e, 0 0 5px #23854e, 0 0 2px #23854e;
 }
@@ -800,57 +829,57 @@ span.cm-keyword:hover {
   color: var(--neon-night-red);
 }
 
-.jp-RenderedText pre .ansi-red-intense-fg, 
+.jp-RenderedText pre .ansi-red-intense-fg,
 .jp-RenderedText pre .ansi-red-intense-bg {
   color: var(--neon-night-red);
 }
 
-.jp-RenderedText pre .ansi-blue-fg, 
+.jp-RenderedText pre .ansi-blue-fg,
 .jp-RenderedText pre .ansi-blue-bg {
   color: var(--neon-night-purple1);
 }
 
-.jp-RenderedText pre .ansi-blue-intense-fg, 
+.jp-RenderedText pre .ansi-blue-intense-fg,
 .jp-RenderedText pre .ansi-blue-intense-bg {
   color: var(--neon-night-blue0);
 }
 
-.jp-RenderedText pre .ansi-green-fg, 
+.jp-RenderedText pre .ansi-green-fg,
 .jp-RenderedText pre .ansi-green-bg {
   color: var(--neon-night-purple3);
 }
 
-.jp-RenderedText pre .ansi-green-intense-fg, 
+.jp-RenderedText pre .ansi-green-intense-fg,
 .jp-RenderedText pre .ansi-green-intense-bg {
   color: var(--neon-night-purple2);
 }
 
-.jp-RenderedText pre .ansi-yellow-fg, 
+.jp-RenderedText pre .ansi-yellow-fg,
 .jp-RenderedText pre .ansi-yellow-bg {
   color: var(--neon-night-purple0);
 }
 
-.jp-RenderedText pre .ansi-yellow-intense-fg, 
+.jp-RenderedText pre .ansi-yellow-intense-fg,
 .jp-RenderedText pre .ansi-yellow-intense-bg {
   color: var(--neon-night-orange);
 }
 
-.jp-RenderedText pre .ansi-cyan-fg, 
+.jp-RenderedText pre .ansi-cyan-fg,
 .jp-RenderedText pre .ansi-cyan-fg {
   color: var(--neon-night-yellow);
 }
 
-.jp-RenderedText pre .ansi-cyan-intense-fg, 
+.jp-RenderedText pre .ansi-cyan-intense-fg,
 .jp-RenderedText pre .ansi-cyan-intense-bg {
   color: var(--neon-night-cyan);
 }
 
-.jp-RenderedText pre .ansi-magenta-fg, 
+.jp-RenderedText pre .ansi-magenta-fg,
 .jp-RenderedText pre .ansi-magenta-fg {
   color: var(--neon-night-pink);
 }
 
-.jp-RenderedText pre .ansi-magenta-intense-fg, 
+.jp-RenderedText pre .ansi-magenta-intense-fg,
 .jp-RenderedText pre .ansi-magenta-intense-bg {
   color: var(--neon-night-peach);
 }
@@ -866,29 +895,42 @@ span.cm-keyword:hover {
 #setting-editor .jp-PluginList li:hover {
   border-color: transparent;
 }
+
+
 /* Custom*/
 
 /* Left and top tool bar*/
-.jp-SideBar.p-TabBar, #jp-top-panel {
-  background-color: rgba(34, 33, 54, 0.65);  /* last value is the transparency */
+.jp-SideBar.p-TabBar,
+#jp-top-panel {
+  background-color: rgba(34, 33, 54, 0.65); /* last value is the transparency */
 }
 
 /* Background */
 
 /* Neon NIght Style */
 .jp-LabShell {
-  background: linear-gradient(to bottom right, rgba(0, 255, 255, 0.25), 
-   rgba(180, 0, 255, 0.25), rgba(140, 0, 255, 0.25), rgba(255, 0, 100, 0.25));
+  background: linear-gradient(
+    to bottom right,
+    rgba(0, 255, 255, 0.25),
+    rgba(180, 0, 255, 0.25),
+    rgba(140, 0, 255, 0.25),
+    rgba(255, 0, 100, 0.25)
+  );
 }
 
 .lm-DockPanel-tabBar .lm-TabBar-tab.jp-mod-current:before {
-  background: linear-gradient(to right,
-  #00000000, #3765e7, #a044ca, #ca44a9, #00000000)
+  background: linear-gradient(
+    to right,
+    #00000000,
+    #3765e7,
+    #a044ca,
+    #ca44a9,
+    #00000000
+  );
 }
 
-
- /* Neon Sunset Style */
- /* .jp-LabShell {
+/* Neon Sunset Style */
+/* .jp-LabShell {
   background: linear-gradient(to bottom right, rgb(118 53 222 / 0.5),
   rgb(222 53 124 / 55%), rgb(244 218 36 / 0.6));
 }
@@ -897,7 +939,6 @@ span.cm-keyword:hover {
   background: linear-gradient(to right,
   #00000000, #7334cb, #f36f8f, #ac7453, #00000000);
 } */
-
 
 /* or use an image as the background */
 /* .jp-LabShell {
@@ -909,14 +950,13 @@ span.cm-keyword:hover {
   #00000000, #3765e7, #a044ca, #ca44a9, #00000000)
 } */
 
-
 /* Fonts*/
 /* Code font */
 :root {
   /* Code font */
   --jp-code-font-family: Monaco, 'Source Code Pro', monospace;
-/* Prompt number of cell */
-  --jp-cell-prompt-font-family:  'Vibur';
+  /* Prompt number of cell */
+  --jp-cell-prompt-font-family: 'Vibur';
 }
 
 /* Opened files tab bar */
@@ -925,52 +965,86 @@ span.cm-keyword:hover {
   font-size: 14px;
 }
 
-/* Search tool */
-.jp-DocumentSearch-overlay *,  .filter .bp3-input {
-  font-family: 'Neon Bugler';
-  font-size: 15px;
+.jp-NotebookPanel-toolbar {
+  display: none;
 }
 
-/* glow text */
-body[data-jp-theme-name="JupyterLab Miami Nights"] span.cm-builtin,
-body[data-jp-theme-name="JupyterLab Miami Nights"] span.cm-def,
-body[data-jp-theme-name="JupyterLab Miami Nights"] span.cm-error,
-body[data-jp-theme-name="JupyterLab Miami Nights"] span.cm-keyword,
-body[data-jp-theme-name="JupyterLab Miami Nights"] span.cm-link,
-body[data-jp-theme-name="JupyterLab Miami Nights"] span.cm-number,
-body[data-jp-theme-name="JupyterLab Miami Nights"] span.cm-property,
-body[data-jp-theme-name="JupyterLab Miami Nights"] span.cm-string,
-body[data-jp-theme-name="JupyterLab Miami Nights"] span.cm-variable,
-body[data-jp-theme-name="JupyterLab Miami Nights"] span.cm-variable-2,
-body[data-jp-theme-name="JupyterLab Miami Nights"] span.cm-variable-3,
-body[data-jp-theme-name="JupyterLab Miami Nights"] button[title="Switch kernel"] {
-    text-shadow: 0 0 2px #000, 0 0 10px;
+.jp-SideBar .p-TabBar {
+  display: none;
 }
 
 /* side bar gradient */
-body[data-jp-theme-name="JupyterLab Miami Nights"] .jp-SideBar .lm-TabBar-tab.lm-mod-current {
-    background: linear-gradient(to bottom, #fff951 25%, #fc28a8) !important;
+body[data-jp-theme-name='JupyterLab Miami Nights'] .jp-SideBar {
+  display: none;
+}
+
+.jp-main-vsplit-panel {
+  left: 0px;
+  right: 0px;
+  margin: 0px;
+}
+
+#main {
+  background: var(--neon-night-bg0);
+}
+
+#jp-top-panel {
+  display: none;
+}
+#jp-menu-panel {
+  display: none;
+}
+
+#jp-main-content-panel {
+  top: 0px;
+}
+
+/* glow text */
+body[data-jp-theme-name='JupyterLab Miami Nights'] span.cm-builtin,
+body[data-jp-theme-name='JupyterLab Miami Nights'] span.cm-def,
+body[data-jp-theme-name='JupyterLab Miami Nights'] span.cm-error,
+body[data-jp-theme-name='JupyterLab Miami Nights'] span.cm-keyword,
+body[data-jp-theme-name='JupyterLab Miami Nights'] span.cm-link,
+body[data-jp-theme-name='JupyterLab Miami Nights'] span.cm-number,
+body[data-jp-theme-name='JupyterLab Miami Nights'] span.cm-property,
+body[data-jp-theme-name='JupyterLab Miami Nights'] span.cm-string,
+body[data-jp-theme-name='JupyterLab Miami Nights'] span.cm-variable,
+body[data-jp-theme-name='JupyterLab Miami Nights'] span.cm-variable-2,
+body[data-jp-theme-name='JupyterLab Miami Nights'] span.cm-variable-3,
+body[data-jp-theme-name='JupyterLab Miami Nights']
+  button[title='Switch kernel'] {
+  /* text-shadow: 0 0 2px #000, 0 0 10px; */ /* removing the glow */
+}
+
+/* side bar gradient */
+body[data-jp-theme-name='JupyterLab Miami Nights']
+  .jp-SideBar
+  .lm-TabBar-tab.lm-mod-current {
+  background: linear-gradient(to bottom, #fff951 25%, #fc28a8) !important;
 }
 
 /* tab gradient */
-body[data-jp-theme-name="JupyterLab Miami Nights"] .lm-DockPanel-tabBar .lm-TabBar-tab.lm-mod-current {
-    background: linear-gradient(to right, #fc28a8, #03edf9) !important;
+body[data-jp-theme-name='JupyterLab Miami Nights']
+  .lm-DockPanel-tabBar
+  .lm-TabBar-tab.lm-mod-current {
+  background: linear-gradient(to right, #fc28a8, #03edf9) !important;
 }
 
 /* tab title font */
 .lm-DockPanel-tabBar .lm-TabBar-tab {
-    font-family: var(--jp-ui-font-family) !important;
-    font-size: 14px;
+  font-family: var(--jp-ui-font-family) !important;
+  font-size: 14px;
 }
-  
+
 /* tab title font */
-.jp-DocumentSearch-overlay *,  .filter .bp3-input {
-    font-family: var(--jp-ui-font-family) !important;
-    font-size: 15px;
+.jp-DocumentSearch-overlay *,
+.filter .bp3-input {
+  font-family: var(--jp-ui-font-family) !important;
+  font-size: 15px;
 }
 
 /* tab title no shadow */
-.lm-DockPanel-tabBar .lm-TabBar-tab:hover:not(.lm-mod-current), 
+.lm-DockPanel-tabBar .lm-TabBar-tab:hover:not(.lm-mod-current),
 .lm-DockPanel-tabBar .lm-TabBar-tab.lm-mod-current {
   color: var(--jp-ui-font-color0) !important;
   text-shadow: unset !important;
@@ -978,22 +1052,21 @@ body[data-jp-theme-name="JupyterLab Miami Nights"] .lm-DockPanel-tabBar .lm-TabB
 
 /* tab x box */
 div.lm-TabBar-tabCloseIcon > svg > g.jp-icon-selectable-inverse {
-    fill: magenta !important;
+  fill: magenta !important;
 }
 
 /* tab x box */
 div.lm-TabBar-tabCloseIcon > svg > g.jp-icon-selectable {
-    fill: white !important;
+  fill: white !important;
 }
 
 div.lm-TabBar-tabCloseIcon:hover > svg > g.jp-icon-selectable {
-    fill: cyan !important;
+  fill: cyan !important;
 }
 
 div.lm-TabBar-tabCloseIcon > svg > g.jp-icon-busy {
-    fill: none !important;
+  fill: none !important;
 }
-
 
 /* Set the default typography for monospace elements */
 tt,
@@ -1010,3 +1083,8 @@ pre {
 | Copyright (c) Jupyter Development Team.
 | Distributed under the terms of the Modified BSD License.
 |----------------------------------------------------------------------------*/
+
+#jp-main-content-panel {
+  top: 0px;
+}
+

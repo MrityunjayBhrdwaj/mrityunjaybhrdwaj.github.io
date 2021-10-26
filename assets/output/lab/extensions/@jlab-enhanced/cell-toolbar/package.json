@@ -1,6 +1,6 @@
 {
   "name": "@jlab-enhanced/cell-toolbar",
-  "version": "3.3.0",
+  "version": "3.4.2",
   "description": "A cell toolbar for JupyterLab.",
   "keywords": [
     "jupyter",
@@ -84,7 +84,7 @@
     "schemaDir": "schema",
     "outputDir": "jlab_enhanced_cell_toolbar/labextension",
     "_build": {
-      "load": "static/remoteEntry.e10847405ee504a8bcfd.js",
+      "load": "static/remoteEntry.d549bef48726b371e378.js",
       "extension": "./extension",
       "style": "./style"
     }
