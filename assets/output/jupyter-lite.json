@@ -4,6 +4,12 @@
     "appUrl": "./lab",
     "appVersion": "0.1.0-alpha.14",
     "baseUrl": "./",
+    "disabledExtensions": [
+      "@jupyterlab/launcher",
+      "@jupyterlab/filebrowser",
+      "@jupyterlab/filebrowser-extension",
+      "@jupyterlab/mainmenu"
+    ],
     "faviconUrl": "./lab/favicon.ico",
     "federated_extensions": [
       {
